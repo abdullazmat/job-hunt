@@ -23,6 +23,15 @@ Commit 3 : Mongo DB Models Setup
 5. Finally  export each model with a name and declare the created schema in it.  
 
 
+Commit 4 : Controllers Setup 
+1. Created a controllers folder in backend folder for controllers setup.
+2. We will create user controller logic for both register and login. For register function, we first make sure that all required fields are present in req.body. Then we check if email of user is unique or not. After that we will give a hashed password to user's password using bcryptjs. Then we will create User in the database.
+3. For login controller, we first make sure all required input are present in req.body. If user email excits, we first compare that login password to hashed password in database. If password matches, we check if role matches with student or recruiter. We then pass the token Data and generate a new token. After that new user object is created and cookie is created with the success message of User Logged in Successfully.
+4: User logout controller is created afterwards which clears the cookie token and expires it and shows
+message of user logged out on successful execution.
+5: Now we create the update user profile controller which takesform data from req.body and checks if all data
+ is provided . Then it checks if user is verified by comparing its id with middleware. After all the checks, we update the data in database and send response back to user with the data  with success message. 
+
 
 
 
