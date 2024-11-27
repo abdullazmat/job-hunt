@@ -1,0 +1,5 @@
+1. Created two folders frontend and backend
+2. Run command "npm init" in backend folder to initialize package.json file
+3. Run command "npm i express mongoose jsonwebtoken bcryptjs cookie-parser dotenv cors" for install backages in backend.
+4. Use "type" : "module" in package.json file in backend to use import statements.
+5. Create an index file in backend to initialize express, cookieParser and core and use them and listen to a Port number defined
