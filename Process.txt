@@ -1,5 +1,17 @@
+Commit 1 : Initialized backend files with package.json and index.js setup
+
 1. Created two folders frontend and backend
 2. Run command "npm init" in backend folder to initialize package.json file
 3. Run command "npm i express mongoose jsonwebtoken bcryptjs cookie-parser dotenv cors" for install backages in backend.
 4. Use "type" : "module" in package.json file in backend to use import statements.
-5. Create an index file in backend to initialize express, cookieParser and core and use them and listen to a Port number defined
+5. Create an index file in backend to initialize express, cookieParser and core with app.use and use them and listen to a Port number defined
+
+Commit 2 : Set up Mongo DB and create MongoDB function and Connect.
+1. Use app.get and define a route to test whether port is functional or not.
+2. Open mongo site and create new project with cluster and then set password. Connect to Database via VS code
+connect option and copy the URL provided. Set network access to 0.0.0.0/0  to access database from anywhere.
+3. Create env file in backend folder and define MONGO_URI copied from mongodb site and set PORT used in index.js of backend folder
+4. Create Backend/Utils folder and create db.js file in it which includes mongodb connection setup in connectDB function defined.
+5. Import the function connectDB created in Backend/Utils/db.js and initialize the function in app.listen function.
+
+
