@@ -15,3 +15,18 @@ connect option and copy the URL provided. Set network access to 0.0.0.0/0  to ac
 5. Import the function connectDB created in Backend/Utils/db.js and initialize the function in app.listen function.
 
 
+Commit 3 : Mongo DB Models Setup
+1. Create a models folder in backend folder.
+2. Create file user.model.js in models folder and define the rules in users Schema like name,email, passwords etc.
+3.  Similarly create application.model.js, job.model.js amd company.model.js and define their rules and schemas
+4. Use mongoose.Schemas.Types.ObjectId and give reference between linking models.
+5. Finally  export each model with a name and declare the created schema in it.  
+
+
+
+
+
+
+
+
+
