@@ -42,7 +42,18 @@ token successfully, get userId from from that token and pass it to req and call 
 see the response. If the response is valid and working according to controllers defined, this means api is working fine and ready to go.
 
 
- 
+Commit 6 : Company Controller & API Routes
+1. Create company.controller.js  in backend folder for company registration, get companies created by a user ,get company by id and update company controller.
+2. Company Registration controller first checks company name in req.body . If its present, it gives error of company already present. If its a new company name, it will get created in Company database.
+3. Next we will make controller which gets companies made by a logged in user. We first get the user id by by  
+req.id, then we find that id in Company database. If no comapnies excist, we give error that no company found. Elso we give error 
+4. If we wanna get company by its id, we make a getCompanyById controller and get its id from prams. Then we find that id from prams in database, if id excists, we show that company in response.
+5. Lastly we will create update company controller by using findByIdandUpdate method. In updating profile, we
+used manual save method for updating data. In update company profile controller, we first check get the data via 
+req,body, then we get id by params and update data in object. Then we use findByIdAndUpdate method to first get company id and pass that updated object data and rule new:true. We then pass that data via response to user.
+6. 
+
+
 
 
 
