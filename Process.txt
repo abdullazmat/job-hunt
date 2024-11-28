@@ -33,6 +33,16 @@ message of user logged out on successful execution.
  is provided . Then it checks if user is verified by comparing its id with middleware. After all the checks, we update the data in database and send response back to user with the data  with success message. 
 
 
+Commit 5 : User Routes and Middlewares Setup
+1. Create a routes folder in backend and create user.route.js file and define routes using express Router for user registeration, login, logout and profile update with middleware "isAuthenticated" for verfification .
+2.  Create middlewares folder and create file isAuthenticated.js and get token from cookies which is passed 
+during user login. Now decode that token with jwt.verify method and pass the jwt key from env. After decoding 
+token successfully, get userId from from that token and pass it to req and call next().
+3. We will then use Insomnia to check request for different API;s like http://local:8000/api/v1/user/login and 
+see the response. If the response is valid and working according to controllers defined, this means api is working fine and ready to go.
+
+
+ 
 
 
 

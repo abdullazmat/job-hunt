@@ -1,6 +1,8 @@
-import User from "../models/user.model.js";
+import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import dotenv from "dotenv";
+dotenv.config();
 
 // User Registration controller
 export const register = async (req, res) => {
@@ -24,6 +26,7 @@ export const register = async (req, res) => {
       fullName,
       email,
       password: hashedPassword,
+      phoneNumber,
       role,
     });
 
@@ -81,7 +84,7 @@ export const login = async (req, res) => {
     const tokenData = {
       userId: user._id,
     };
-    const token = jwt.sign(tokenData, process.env.JWT_SECRET, {
+    const token = jwt.sign(tokenData, process.env.SECRET_KEY, {
       expiresIn: "1d",
     });
 
@@ -139,15 +142,8 @@ export const updateProfile = async (req, res) => {
   try {
     const { fullName, email, phoneNumber, bio, skills } = req.body;
     const file = req.file;
-    if (!fullName || !email || !phoneNumber || !bio || !skills) {
-      return res
-        .status(400)
-        .json({ message: "All fields are required", success: false });
-    }
 
     // Cloudinary will come here later
-
-    const skillsArray = skills.split(",");
 
     // Check if user is verified
     const userId = req.id; // Middleware Authenticated user id
@@ -159,12 +155,14 @@ export const updateProfile = async (req, res) => {
     }
 
     // Updating the data
-    user.fullName = fullName;
-    user.email = email;
-    user.phoneNumber = phoneNumber;
-    user.profile.bio = bio;
-    user.profile.skills = skillsArray;
-
+    if (fullName) user.fullName = fullName;
+    if (email) user.email = email;
+    if (phoneNumber) user.phoneNumber = phoneNumber;
+    if (bio) user.profile.bio = bio;
+    let skillsArray;
+    if (skills) {
+      skillsArray = skills.split(",");
+    }
     // Resume will come here later
 
     await user.save();
