@@ -51,9 +51,18 @@ req.id, then we find that id in Company database. If no comapnies excist, we giv
 5. Lastly we will create update company controller by using findByIdandUpdate method. In updating profile, we
 used manual save method for updating data. In update company profile controller, we first check get the data via 
 req,body, then we get id by params and update data in object. Then we use findByIdAndUpdate method to first get company id and pass that updated object data and rule new:true. We then pass that data via response to user.
-6. 
+6. We then create a company route and use exress.router for defining routes for registering company, updating company data, get company data via id and all use companies by user id.
+7. We then import these routes in index.js and defined a route for company APIs.
+8. After that test these routes defined in Insomnia like http://localhost:8000/api/v1/company/register and test those API routes. After all routes are tested, save them.
+ 
 
-
+Commit 7 : Job Controller & API Routes
+1. We first create a job controller.js file in controller folder.
+2. After that, we create controllers for creating a job, controller for getting job by a query , controller for
+getting job by an id and a controller for getting all jobs posted by admin.
+3. We then define the routes of these controllers in job.routes.js files in routes folder.
+4. After exporting them to index file, we define API for job routes.
+5. We then use Insomnia to test different routes like http://localhost:8000/api/v1/job/post and test for responses. If getting correct results, save them. 
 
 
 
