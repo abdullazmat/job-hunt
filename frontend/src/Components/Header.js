@@ -3,6 +3,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useState } from "react";
+import SignUp from "../Pages/SignUp";
+import LogIn from "../Pages/LogIn";
 
 function Header() {
   const [user, setUser] = useState(false);
@@ -27,7 +29,7 @@ function Header() {
             <ul className="nav col-12 col-lg-auto ms-lg-auto me-0 me-lg-5 mb-2 justify-content-center mb-md-0">
               <li>
                 <Link
-                  to="#"
+                  to="/"
                   className="nav-link px-2  text-black nav-links"
                   style={{ fontWeight: "bold" }}
                 >
@@ -72,22 +74,26 @@ function Header() {
                 </Link>
               ) : (
                 <div className="mt-3 mt-lg-0">
-                  <button
-                    className="btn me-3 nav-login-btn "
-                    style={{
-                      backgroundColor: "white",
-                      color: "black",
-                      border: "1px solid black",
-                    }}
-                  >
-                    LogIn
-                  </button>
-                  <button
-                    className="btn nav-signup-btn "
-                    style={{ backgroundColor: "#5F32AD", color: "white" }}
-                  >
-                    Signup
-                  </button>
+                  <Link to={"/login"}>
+                    <button
+                      className="btn me-3 nav-login-btn "
+                      style={{
+                        backgroundColor: "white",
+                        color: "black",
+                        border: "1px solid black",
+                      }}
+                    >
+                      LogIn
+                    </button>
+                  </Link>
+                  <Link to={"/signup"}>
+                    <button
+                      className="btn nav-signup-btn "
+                      style={{ backgroundColor: "#5F32AD", color: "white" }}
+                    >
+                      Signup
+                    </button>
+                  </Link>
                 </div>
               )}
               <ul className="dropdown-menu text-small">
