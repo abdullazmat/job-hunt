@@ -1,0 +1,29 @@
+/* Nav Background  */
+body,
+html {
+  background-color: #ffffff;
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+/* Header Component */
+.nav-links:hover {
+  color: #6a38c2 !important;
+}
+
+.view-profile-nav:active,
+.view-profile-nav:focus {
+  background-color: #6a38c2 !important;
+  color: white !important;
+}
+
+.nav-login-btn:hover {
+  opacity: 0.8;
+  background-color: black !important;
+  color: white !important;
+}
+
+.nav-signup-btn:hover {
+  opacity: 0.8;
+}

@@ -65,7 +65,23 @@ getting job by an id and a controller for getting all jobs posted by admin.
 5. We then use Insomnia to test different routes like http://localhost:8000/api/v1/job/post and test for responses. If getting correct results, save them. 
 
 
+Commit 8 : Application Controller & API Routes
+1. We now create an application controller in controller folder.
+2. In the application controller, we create applyJob controller which allow user to apply for jobs, a getAppliedJobs controller which allow users to check jobs they applied for. Then we will create an getApplication controller which allows admin to check how many applicants applied. Finally we create an update
+application controller which allow admins to update status of application to accepted/rejected etc.
+3. After that we defined routes for applyJob, getAppliedJobs, getApplications and updateApplicationStatus controllers.
+4. Then in index.js we we dine routes for Application APIs defined.
+5. Finally, we use Insomnia to test API routes like http://localhost:8000/api/v1/application/apply/:id for posting job etc. 
 
+
+Commit 9 : Created Navbar Component and FrontEnd Setup
+1: First we install node modules folder by npm create react app and install other dependencies like react-dom, react-router-dom. react-scripts and redux persist. 
+2. After that we create index.html in public folder and link Bootstrap cdns along with font-awesome cdn and use a fav icon. Also we will create a div with id root which will get rendered in index.js of frontend.
+3. Now we will create app.js file which will import BrowserRouter, Routes, Route from react router dom. Then we will import other functional components and pages we wanna route to. Then we will give each Route a path for the page we wanna redirect to.
+4. After that we  will create header.js in components folder and home.js in pages and export them to app.js for 
+rendering.
+5. An index.js file will now be created where we will import App.js, index.css, react and router dom and create root with react Dom and place App component in it.
+6. In package.js, we will replace proxy with local host port number for front end.
 
 
 
