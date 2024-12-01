@@ -11,6 +11,7 @@ function LogIn() {
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
+  const [userData, setUserData] = useState(null);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
@@ -19,7 +20,6 @@ function LogIn() {
       [e.target.name]: e.target.value,
     });
   };
-  console.log(formData);
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -34,6 +34,7 @@ function LogIn() {
       });
 
       const data = await res.json();
+      setUserData(data);
       console.log(data);
       if (data.success === false) {
         setLoading(false);
@@ -48,7 +49,7 @@ function LogIn() {
         setTimeout(() => {
           setSuccess(false);
           navigate("/");
-        }, 1000);
+        }, 2000);
       }
     } catch (error) {
       setLoading(false);
@@ -139,8 +140,40 @@ function LogIn() {
             SignUp
           </Link>
         </div>
-        {error && <p className="text-danger mt-2">{error}</p>}
-        {success && <p className="text-success mt-2">Logged In Successfully</p>}
+        {error && (
+          <div
+            className="toast-container position-fixed"
+            style={{ bottom: "50px", right: "10px" }} // Adjust these values
+          >
+            <div
+              id="liveToast"
+              className="toast show"
+              role="alert"
+              aria-live="assertive"
+              aria-atomic="true"
+            >
+              <div className="toast-body text-danger">{error}</div>
+            </div>
+          </div>
+        )}
+        {success && (
+          <div
+            className="toast-container position-fixed bottom-0 end-0 p-3"
+            // style={{ bottom: "50px", right: "10px" }} // Adjust these values
+          >
+            <div
+              id="liveToast"
+              className="toast show"
+              role="alert"
+              aria-live="assertive"
+              aria-atomic="true"
+            >
+              <div className="toast-body text-success fw-bold">
+                {userData.message}
+              </div>
+            </div>
+          </div>
+        )}
       </form>
     </div>
   );

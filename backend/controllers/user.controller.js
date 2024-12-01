@@ -2,6 +2,8 @@ import { User } from "../models/user.model.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
+import cloudinary from "../utils/cloudinary.js";
+import getDataUri from "../utils/datauri.js";
 dotenv.config();
 
 // User Registration controller
@@ -13,6 +15,11 @@ export const register = async (req, res) => {
         .status(400)
         .json({ message: "All fields are required", success: false });
     }
+
+    const file = req.file;
+    const fileUri = getDataUri(file);
+    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+
     const user = await User.findOne({ email }); // Check if email is unique
     if (user) {
       return res
@@ -28,6 +35,9 @@ export const register = async (req, res) => {
       password: hashedPassword,
       phoneNumber,
       role,
+      profile: {
+        profilePhoto: cloudResponse.secure_url,
+      },
     });
 
     return res.status(201).json({

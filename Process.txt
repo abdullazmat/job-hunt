@@ -83,11 +83,15 @@ rendering.
 5. An index.js file will now be created where we will import App.js, index.css, react and router dom and create root with react Dom and place App component in it.
 6. In package.js, we will replace proxy with local host port number for front end.
 
-Commit 10 : Login and Sign Up Page UI with Login API setup
+Commit 10 : Login and Sign Up Page UI Setup with Login API 
 1. We created Login and Sign Up page UI and passed them their respective route.
 2. Second in login page we use handlechange and set form data states and send data via api response.
 3. We also use handle Submit to get the submit data and pass it to backend.
 4. Upon success or failure, we show error or success message respectively.
+
+Commit 11 : Sign Up Page File To Url Conversion
+ 
+
 
 
 
