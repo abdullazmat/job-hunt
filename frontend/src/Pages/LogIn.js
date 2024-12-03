@@ -1,8 +1,11 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { setLoading } from "../Redux/authSlice.js";
 
 function LogIn() {
+  // Use States
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -10,9 +13,14 @@ function LogIn() {
   });
   const [error, setError] = useState(false);
   const [success, setSuccess] = useState(false);
-  const [loading, setLoading] = useState(false);
   const [userData, setUserData] = useState(null);
+
+  // Redux States
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.auth);
+
+  // Functions
 
   const handleChange = (e) => {
     setFormData({
@@ -24,7 +32,7 @@ function LogIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      setLoading(true);
+      dispatch(setLoading(true));
       const res = await fetch("/api/v1/user/login", {
         method: "POST",
         headers: {
@@ -35,24 +43,24 @@ function LogIn() {
 
       const data = await res.json();
       setUserData(data);
-      console.log(data);
       if (data.success === false) {
-        setLoading(false);
+        dispatch(setLoading(false));
         setError(data.message);
         setTimeout(() => {
           setError(null);
         }, 3000);
         return;
       } else {
-        setLoading(false);
+        dispatch(setLoading(false));
         setSuccess(true);
+        setError(null);
         setTimeout(() => {
           setSuccess(false);
           navigate("/");
         }, 2000);
       }
     } catch (error) {
-      setLoading(false);
+      dispatch(setLoading(false));
       setError(error.message);
       setTimeout(() => {
         setError(null);

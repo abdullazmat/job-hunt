@@ -90,7 +90,17 @@ Commit 10 : Login and Sign Up Page UI Setup with Login API
 4. Upon success or failure, we show error or success message respectively.
 
 Commit 11 : Sign Up Page File To Url Conversion
+1. In sign up  pages for file loading capability, I use axios.post and used form data to append new data. 
+2. Then we use multer which acts as a middleware for checking and storing file temporarily.
+3. After that, cloudinary api logins are passed in env file and used in cloudinary.js. Then we import both in index.js.
+4. Before uploading to cloudinary, file is passed in dataUri to parse file name and its data.
+5. Lastly, after parsing data in dataUri, file is uploaded on cloudinfary and link is passed. 
+
+
+Commit 12 : SetUp Redux For Login and Signup Page
+
  
+
 
 
 

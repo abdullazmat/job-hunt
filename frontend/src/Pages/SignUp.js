@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { USER_API_END_POINT } from "../Utils/constant";
+import { setLoading } from "../Redux/authSlice.js";
+import { useDispatch, useSelector } from "react-redux";
 
 function SignUp() {
+  // Use States
   const [formData, setFormData] = useState({
     fullName: "",
     email: "",
@@ -14,10 +17,14 @@ function SignUp() {
     file: "",
   });
   const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(false);
   const [success, setSuccess] = useState(false);
-  const navigate = useNavigate();
 
+  // Redux States
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const { loading } = useSelector((state) => state.auth);
+
+  // Functions
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -32,8 +39,6 @@ function SignUp() {
     });
   };
 
-  console.log(formData);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formDataObject = new FormData(); //formdata object
@@ -47,21 +52,21 @@ function SignUp() {
     }
 
     try {
-      setLoading(true);
+      dispatch(setLoading(true));
       const res = await axios.post(`${USER_API_END_POINT}/signup`, formData, {
         headers: { "Content-Type": "multipart/form-data" },
         withCredentials: true,
       });
 
       if (!res.data.success) {
-        setLoading(false);
+        dispatch(setLoading(false));
         setError(res.data.message);
         setTimeout(() => {
           setError(null);
         }, 3000);
         return;
       } else {
-        setLoading(false);
+        dispatch(setLoading(false));
         setSuccess(true);
         setTimeout(() => {
           setSuccess(false);
@@ -69,7 +74,7 @@ function SignUp() {
         }, 2000);
       }
     } catch (error) {
-      setLoading(false);
+      dispatch(setLoading(false));
       if (error.response) {
         setError(error.response.data.message);
       } else {
@@ -79,7 +84,7 @@ function SignUp() {
         setError(null);
       }, 3000);
     } finally {
-      setLoading(false);
+      dispatch(setLoading(false));
     }
   };
 

@@ -6,7 +6,7 @@ import { initializeApp } from "firebase/app";
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
 const firebaseConfig = {
-  apiKey: "AIzaSyCBO1ks0R-Cx0slPOkhu3RB-JDDHYJ20eU",
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
   authDomain: "job-hunt-firebase.firebaseapp.com",
   projectId: "job-hunt-firebase",
   storageBucket: "job-hunt-firebase.firebasestorage.app",
