@@ -98,7 +98,13 @@ Commit 11 : Sign Up Page File To Url Conversion
 
 
 Commit 12 : SetUp Redux For Login and Signup Page
+1. Set up loading state for redux in auth Slice js file.
+2. Then we store this file in Store.js
+3. The by importing it via usestate, we use the fuctions defined in UserSlice js using dispath
 
+Commit 13: Hero Section and Category Section UI Setup
+1. Hero Section is made using Hero Section component
+2. Categories are made using botstrap carousel
  
 
 

@@ -27,3 +27,15 @@ html {
 .nav-signup-btn:hover {
   opacity: 0.8;
 }
+
+/* Hero Section Component */
+.searchicon {
+  color: white;
+}
+.searchicon:hover {
+  cursor: pointer;
+  color: #1861c7;
+}
+.search-btn-hero{
+  background-color: #6a38c2;
+}

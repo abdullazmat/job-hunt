@@ -1,7 +1,12 @@
 import React from "react";
+import HeroSection from "../Components/HeroSection";
+import CategoryCarousel from "../Components/CategoryCarousel";
 
 function Home() {
-  return <div>Home</div>;
+  return <div>
+    <HeroSection />
+    <CategoryCarousel />
+  </div>;
 }
 
 export default Home;
