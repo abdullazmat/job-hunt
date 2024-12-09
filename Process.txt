@@ -106,7 +106,8 @@ Commit 13: Hero Section and Category Section UI Setup
 1. Hero Section is made using Hero Section component
 2. Categories are made using botstrap carousel
  
-
+Commit 14 : HomePage UI Build
+1. In this section, we build components of homepage like Latest Job Openings, job cards and designed Footer UI
 
 
 
