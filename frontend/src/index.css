@@ -44,4 +44,15 @@ html {
   cursor: default;
 }
 
-/* Card Component */
+/* FilterJob Card Component */
+.filter-job-detail-btn:hover {
+  color: white !important;
+}
+
+.filter-job-apply-btn:hover {
+  opacity: 0.8;
+}
+
+.bookmark-icon {
+  cursor: pointer;
+}

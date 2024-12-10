@@ -110,6 +110,6 @@ Commit 14 : HomePage UI Build
 1. In this section, we build components of homepage like Latest Job Openings, job cards and designed Footer UI
 
 
-
-
+Commit 15  : Filtered Jobs Component on Job Page UI (WIP-I)
+1. Working on Filtered job component which will help filtering jobs on various condition on jobs page. (WIP)
 

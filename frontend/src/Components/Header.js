@@ -38,7 +38,7 @@ function Header() {
               </li>
               <li>
                 <Link
-                  to="#"
+                  to="/jobs"
                   className="nav-link px-2 text-black  nav-links"
                   style={{ fontWeight: "bold" }}
                 >
