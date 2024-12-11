@@ -113,3 +113,6 @@ Commit 14 : HomePage UI Build
 Commit 15  : Filtered Jobs Component on Job Page UI (WIP-I)
 1. Working on Filtered job component which will help filtering jobs on various condition on jobs page. (WIP)
 
+Commit 16  : Completed Filtered Jobs Component on Job Page and Browse Page UI
+1. Filtered job component will help filtering jobs on various condition on jobs page.
+2. While Browse Page Will Show All the Job Listings 

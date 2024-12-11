@@ -1,4 +1,3 @@
-import { useState } from "react";
 import FilterJobCards from "./FilterJobCards";
 
 function FilteredJobs() {
@@ -10,7 +9,7 @@ function FilteredJobs() {
       <div className="row g-0">
         {/* Left Side - Form */}
         <div
-          className="col-12 col-md-4 py-4 px-3  border-end "
+          className="col-12 col-md-3 py-4 px-3  border-end "
           style={{
             borderColor: "black",
             borderWidth: "2px",
@@ -18,111 +17,211 @@ function FilteredJobs() {
         >
           <form>
             {/* Search Term */}
-            <div className="d-flex align-items-center mb-4">
+            <div className="d-flex align-items-center mb-2 py-2 border-bottom">
               <b>
-                <p className="m-0">Search Term:</p>
+                <h4 className="m-0">Filtered Jobs</h4>
               </b>
-              <input
-                type="text"
-                className="form-control w-50 ms-2"
-                placeholder="Term"
-                id="searchTerm"
-              />
             </div>
 
-            {/* Type Section */}
-            <div className="mb-4 d-flex">
-              <b>
-                <p className="m-0 mb-2">Type:</p>
-              </b>
-              <div className="d-flex flex-wrap gap-3 ms-2">
-                <div className="form-check">
+            {/* Location Section */}
+            <div className="mb-4">
+              <h5 className="m-0 mb-2">Location</h5>
+              <div className="d-flex flex-wrap">
+                <div className="form-check d-flex align-items-center me-4 mb-2">
                   <input
                     type="checkbox"
-                    className="form-check-input"
-                    id="all"
+                    className="form-check-input me-2"
+                    id="lahore"
+                    style={{ border: "1px solid black" }}
                   />
-                  <label className="form-check-label" htmlFor="all">
-                    Rent & Sale
+                  <label
+                    className="form-check-label fw-bold m-0"
+                    htmlFor="lahore"
+                  >
+                    Lahore
                   </label>
                 </div>
-                <div className="form-check">
+                <div className="form-check d-flex align-items-center me-4 mb-2">
                   <input
                     type="checkbox"
-                    className="form-check-input"
-                    id="rent"
+                    className="form-check-input me-2"
+                    id="islamabad"
+                    style={{ border: "1px solid black" }}
                   />
-                  <label className="form-check-label" htmlFor="rent">
-                    Rent
+                  <label
+                    className="form-check-label fw-bold m-0"
+                    htmlFor="islamabad"
+                  >
+                    Islamabad
                   </label>
                 </div>
-                <div className="form-check">
+                <div className="form-check d-flex align-items-center me-4 mb-2">
                   <input
                     type="checkbox"
-                    className="form-check-input"
-                    id="sale"
+                    className="form-check-input me-2"
+                    id="karachi"
+                    style={{ border: "1px solid black" }}
                   />
-                  <label className="form-check-label" htmlFor="sale">
-                    Sale
+                  <label
+                    className="form-check-label fw-bold m-0"
+                    htmlFor="karachi"
+                  >
+                    Karachi
                   </label>
                 </div>
-                <div className="form-check">
+                <div className="form-check d-flex align-items-center me-4 mb-2">
                   <input
                     type="checkbox"
-                    className="form-check-input"
-                    id="offer"
+                    className="form-check-input me-2"
+                    id="peshawar"
+                    style={{ border: "1px solid black" }}
                   />
-                  <label className="form-check-label" htmlFor="offer">
-                    Offer
+                  <label
+                    className="form-check-label fw-bold m-0"
+                    htmlFor="peshawar"
+                  >
+                    Peshawar
+                  </label>
+                </div>
+                <div className="form-check d-flex align-items-center me-4 mb-2">
+                  <input
+                    type="checkbox"
+                    className="form-check-input me-2"
+                    id="quetta"
+                    style={{ border: "1px solid black" }}
+                  />
+                  <label
+                    className="form-check-label fw-bold m-0"
+                    htmlFor="quetta"
+                  >
+                    Quetta
                   </label>
                 </div>
               </div>
             </div>
 
             {/* Amenities Section */}
-            <div className="mb-4 d-flex">
-              <b>
-                <p className="m-0 mb-2">Amenities:</p>
-              </b>
-              <div className="d-flex flex-wrap gap-3 ms-2">
-                <div className="form-check">
+            <div className="mb-4">
+              <h5 className="m-0 mb-2 ">Industry</h5>
+              <div className="d-flex flex-wrap">
+                <div className="form-check d-flex align-items-center me-4 mb-2">
                   <input
                     type="checkbox"
-                    className="form-check-input"
-                    id="parking"
+                    className="form-check-input me-2"
+                    id="frontend"
+                    style={{ border: "1px solid black" }}
                   />
-                  <label className="form-check-label" htmlFor="parking">
-                    Parking
+                  <label
+                    className="form-check-label fw-bold m-0"
+                    htmlFor="frontend"
+                  >
+                    FrontEnd
                   </label>
                 </div>
-                <div className="form-check">
+                <div className="form-check d-flex align-items-center me-4 mb-2">
                   <input
                     type="checkbox"
-                    className="form-check-input"
-                    id="furnished"
+                    className="form-check-input me-2"
+                    id="backend"
+                    style={{ border: "1px solid black" }}
                   />
-                  <label className="form-check-label" htmlFor="furnished">
-                    Furnished
+                  <label
+                    className="form-check-label fw-bold m-0"
+                    htmlFor="backend"
+                  >
+                    BackEnd
+                  </label>
+                </div>
+                <div className="form-check d-flex align-items-center me-4 mb-2">
+                  <input
+                    type="checkbox"
+                    className="form-check-input me-2"
+                    id="fullstack"
+                    style={{ border: "1px solid black" }}
+                  />
+                  <label
+                    className="form-check-label fw-bold m-0"
+                    htmlFor="fullstack"
+                  >
+                    Full Stack
+                  </label>
+                </div>
+                <div className="form-check d-flex align-items-center me-4 mb-2">
+                  <input
+                    type="checkbox"
+                    className="form-check-input me-2"
+                    id="designing"
+                    style={{ border: "1px solid black" }}
+                  />
+                  <label
+                    className="form-check-label fw-bold m-0"
+                    htmlFor="designing"
+                  >
+                    Designing
+                  </label>
+                </div>
+                <div className="form-check d-flex align-items-center me-4 mb-2">
+                  <input
+                    type="checkbox"
+                    className="form-check-input me-2"
+                    id="seo"
+                    style={{ border: "1px solid black" }}
+                  />
+                  <label className="form-check-label fw-bold m-0" htmlFor="seo">
+                    SEO
                   </label>
                 </div>
               </div>
             </div>
 
-            {/* Sort */}
-            <div className="mb-4 d-flex align-items-center ">
-              <b>
-                <p className="m-0 mb-2">Sort:</p>
-              </b>
-              <select className="form-select w-50 ms-2 " id="sort_order">
-                <option value="regularPrice_desc">Price High To Low</option>
-                <option value="regularPrice_asc">Price Low To High</option>
-                <option value="createdAt_desc">Latest</option>
-                <option value="createdAt_asc">Oldest</option>
-              </select>
+            {/* Job Salary */}
+            <div className="mb-4">
+              <h5 className="m-0 mb-2">Salary</h5>
+              <div className="d-flex flex-wrap">
+                <div className="form-check d-flex align-items-center me-4 mb-2">
+                  <input
+                    type="checkbox"
+                    className="form-check-input me-2"
+                    id="40k"
+                    style={{ border: "1px solid black" }}
+                  />
+                  <label className="form-check-label fw-bold m-0" htmlFor="40k">
+                    0 - 40k
+                  </label>
+                </div>
+                <div className="form-check d-flex align-items-center me-4 mb-2">
+                  <input
+                    type="checkbox"
+                    className="form-check-input me-2"
+                    id="1lakh"
+                    style={{ border: "1px solid black" }}
+                  />
+                  <label
+                    className="form-check-label fw-bold m-0"
+                    htmlFor="1lakh"
+                  >
+                    40K - 1lakh
+                  </label>
+                </div>
+                <div className="form-check d-flex align-items-center me-4 mb-2">
+                  <input
+                    type="checkbox"
+                    className="form-check-input me-2"
+                    id="5lakh"
+                    style={{ border: "1px solid black" }}
+                  />
+                  <label
+                    className="form-check-label fw-bold m-0"
+                    htmlFor="5lakh"
+                  >
+                    1- 5 Lakh
+                  </label>
+                </div>
+              </div>
             </div>
 
             {/* Search Button */}
-            <div className="d-flex ">
+            <div className="d-flex justify-content-center ">
               <button
                 type="submit"
                 className="btn w-75 filter-search-btn"
@@ -134,15 +233,15 @@ function FilteredJobs() {
           </form>
         </div>
         {/* Right Side - Placeholder */}
-        <div className="col-12 col-md-8 py-4 w-95">
-          <h2 className="ms-3" style={{ color: "#334155" }}>
+        <div className="col-12 col-md-9 py-4">
+          <h2 className="ms-3" style={{ color: "#020817" }}>
             Listing Results:
           </h2>
           <div>
             {filterJobs && (
-              <div className="row g-0">
+              <div className="row g-3">
                 {filterJobs.map((job, index) => (
-                  <div key={index} className="col-lg-4 col-md-6 col-sm-12">
+                  <div key={index} className="col-lg-4 col-md-6 col-sm-12 ">
                     <FilterJobCards />
                   </div>
                 ))}

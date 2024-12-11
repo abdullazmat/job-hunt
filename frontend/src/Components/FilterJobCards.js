@@ -5,8 +5,8 @@ import { faBookmark } from "@fortawesome/free-regular-svg-icons";
 const FilterJobCards = () => {
   return (
     <div
-      className="card px-3 shadow-lg bg-body-tertiary rounded mt-3"
-      style={{ width: "25rem", border: "none" }}
+      className="card  shadow-lg bg-body-tertiary rounded mt-3"
+      style={{ border: "none" }}
     >
       <div className="mt-3 d-flex align-items-center justify-content-between px-3">
         <p className="m-0 p-0">
@@ -43,7 +43,7 @@ const FilterJobCards = () => {
           Some quick example text to build on the job title and make up the bulk
           of the card's content.
         </p>
-        <div className="d-flex justify-content-center ">
+        <div className="d-flex flex-wrap gap-2 justify-content-center ">
           <p
             className=" fw-bold mb-2 px-2  px-xl-3"
             style={{
@@ -83,10 +83,10 @@ const FilterJobCards = () => {
             Details
           </button>
           <button
-            className="btn ms-5 filter-job-apply-btn"
+            className="btn ms-5 filter-job-apply-btn px-3"
             style={{ backgroundColor: "#6A38C2", color: "white" }}
           >
-            Apply For Later
+            Apply
           </button>
         </div>
       </div>
