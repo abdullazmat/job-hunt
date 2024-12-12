@@ -2,12 +2,10 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { useState } from "react";
-import SignUp from "../Pages/SignUp";
-import LogIn from "../Pages/LogIn";
+import { useSelector } from "react-redux";
 
 function Header() {
-  const [user, setUser] = useState(false);
+  const { user } = useSelector((state) => state.auth);
 
   return (
     <div>
@@ -65,7 +63,11 @@ function Header() {
                   aria-expanded="false"
                 >
                   <img
-                    src="https://github.com/mdo.png"
+                    src={
+                      user?.user?.profile?.profilePhoto
+                        ? user.user.profile.profilePhoto
+                        : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                    }
                     alt="mdo"
                     width="32"
                     height="32"
@@ -100,7 +102,11 @@ function Header() {
                 <li>
                   <div className="d-flex ">
                     <img
-                      src="https://github.com/mdo.png"
+                      src={
+                        user?.user?.profile?.profilePhoto
+                          ? user.user.profile.profilePhoto
+                          : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                      }
                       alt="mdo"
                       width="32"
                       height="32"
@@ -110,7 +116,8 @@ function Header() {
                       className="dropdown-item  "
                       style={{ fontWeight: "bold" }}
                     >
-                      Abdullah
+                      {user?.user?.fullName.charAt(0).toUpperCase() +
+                        user?.user?.fullName.slice(1)}
                     </p>
                   </div>
                 </li>
@@ -120,7 +127,7 @@ function Header() {
                     <FontAwesomeIcon icon={faUser} className="ms-2" />
                     <Link
                       className="dropdown-item text-black view-profile-nav"
-                      to="#"
+                      to="/profile"
                     >
                       View Profile
                     </Link>

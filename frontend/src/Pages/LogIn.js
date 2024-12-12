@@ -2,7 +2,12 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { setLoading } from "../Redux/authSlice.js";
+import {
+  setLoading,
+  setUser,
+  setError,
+  setSuccess,
+} from "../Redux/authSlice.js";
 
 function LogIn() {
   // Use States
@@ -11,14 +16,11 @@ function LogIn() {
     password: "",
     role: "",
   });
-  const [error, setError] = useState(false);
-  const [success, setSuccess] = useState(false);
-  const [userData, setUserData] = useState(null);
 
   // Redux States
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading } = useSelector((state) => state.auth);
+  const { loading, success, error, user } = useSelector((state) => state.auth);
 
   // Functions
 
@@ -42,32 +44,32 @@ function LogIn() {
       });
 
       const data = await res.json();
-      setUserData(data);
       if (data.success === false) {
         dispatch(setLoading(false));
-        setError(data.message);
+        dispatch(setError(data.message));
         setTimeout(() => {
-          setError(null);
+          dispatch(setError(null));
         }, 3000);
         return;
       } else {
         dispatch(setLoading(false));
-        setSuccess(true);
-        setError(null);
+        dispatch(setUser(data));
+        dispatch(setSuccess(true));
         setTimeout(() => {
-          setSuccess(false);
+          dispatch(setSuccess(false));
           navigate("/");
         }, 2000);
       }
     } catch (error) {
       dispatch(setLoading(false));
-      setError(error.message);
+      dispatch(setError(error.message));
       setTimeout(() => {
-        setError(null);
+        dispatch(setError(null));
       }, 3000);
     }
   };
 
+  // UI
   return (
     <div className="container p-5 mt-4 mt-md-0">
       <form
@@ -164,7 +166,7 @@ function LogIn() {
             </div>
           </div>
         )}
-        {success && (
+        {success && user && (
           <div
             className="toast-container position-fixed bottom-0 end-0 p-3"
             // style={{ bottom: "50px", right: "10px" }} // Adjust these values
@@ -177,7 +179,7 @@ function LogIn() {
               aria-atomic="true"
             >
               <div className="toast-body text-success fw-bold">
-                {userData.message}
+                {user.message}
               </div>
             </div>
           </div>

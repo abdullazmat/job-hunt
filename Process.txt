@@ -116,3 +116,7 @@ Commit 15  : Filtered Jobs Component on Job Page UI (WIP-I)
 Commit 16  : Completed Filtered Jobs Component on Job Page and Browse Page UI
 1. Filtered job component will help filtering jobs on various condition on jobs page.
 2. While Browse Page Will Show All the Job Listings 
+
+
+Commit 17  : View Profile Page UI Completed
+1. View Profile Page UI has details of user like email, phone number, jobs applied and all that.
