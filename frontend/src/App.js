@@ -7,6 +7,7 @@ import Jobs from "./Pages/Jobs.js";
 import Footer from "./Components/Footer.js";
 import Browse from "./Pages/Browse.js";
 import Profile from "./Components/Profile.js";
+import JobDescription from "./Pages/JobDescription.js";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
         <Route path="/jobs" element={<Jobs />}></Route>
         <Route path="/browse" element={<Browse />}></Route>
         <Route path="/profile" element={<Profile />}></Route>
+        <Route path="/job/description/:id" element={<JobDescription />}></Route>
       </Routes>
       <Footer />
     </BrowserRouter>

@@ -2,6 +2,7 @@ import FilterJobCards from "./FilterJobCards";
 
 function FilteredJobs() {
   const filterJobs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+  const jobId = "safdfdsfdsfsd";
 
   return (
     <div className="container-fluid p-0">
@@ -242,7 +243,7 @@ function FilteredJobs() {
               <div className="row g-3">
                 {filterJobs.map((job, index) => (
                   <div key={index} className="col-lg-4 col-md-6 col-sm-12 ">
-                    <FilterJobCards />
+                    <FilterJobCards id={jobId} />
                   </div>
                 ))}
               </div>

@@ -119,4 +119,7 @@ Commit 16  : Completed Filtered Jobs Component on Job Page and Browse Page UI
 
 
 Commit 17  : View Profile Page UI Completed
-1. View Profile Page UI has details of user like email, phone number, jobs applied and all that.
+1. View Profile Page UI has details of user like email, phone number, jobs applied and all that
+
+Commit 18  : Job Description Page UI Completed
+1. Job Description Page UI is finished which will show listing details of job cards

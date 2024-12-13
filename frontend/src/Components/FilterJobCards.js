@@ -1,8 +1,11 @@
 import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-regular-svg-icons";
+import { useNavigate } from "react-router-dom";
 
-const FilterJobCards = () => {
+const FilterJobCards = ({ id }) => {
+  const navigate = useNavigate();
+
   return (
     <div
       className="card  shadow-lg bg-body-tertiary rounded mt-3"
@@ -79,6 +82,9 @@ const FilterJobCards = () => {
           <button
             className="btn px-3 ms-2 filter-job-detail-btn btn-outline-dark fw-bold"
             style={{ color: "black" }}
+            onClick={() => {
+              navigate(`/job/description/${id}`);
+            }}
           >
             Details
           </button>
