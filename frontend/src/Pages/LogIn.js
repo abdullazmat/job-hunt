@@ -78,7 +78,7 @@ function LogIn() {
       >
         <div className="mb-3">
           <h4 className="mb-4 fw-bold">Log In</h4>
-          <label htmlFor="exampleInputEmail1" className="form-label fw-medium">
+          <label htmlFor="email" className="form-label fw-medium">
             Email
           </label>
           <input
@@ -93,10 +93,7 @@ function LogIn() {
           />
         </div>
         <div className="mb-3">
-          <label
-            htmlFor="exampleInputPassword1"
-            className="form-label fw-medium"
-          >
+          <label htmlFor="password" className="form-label fw-medium">
             Password
           </label>
           <input

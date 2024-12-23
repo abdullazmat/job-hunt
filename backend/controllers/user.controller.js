@@ -151,9 +151,11 @@ export const logout = async (req, res) => {
 export const updateProfile = async (req, res) => {
   try {
     const { fullName, email, phoneNumber, bio, skills } = req.body;
-    const file = req.file;
 
-    // Cloudinary will come here later
+    let skillsArray;
+    if (skills) {
+      skillsArray = skills.join(",");
+    }
 
     // Check if user is verified
     const userId = req.id; // Middleware Authenticated user id
@@ -169,11 +171,23 @@ export const updateProfile = async (req, res) => {
     if (email) user.email = email;
     if (phoneNumber) user.phoneNumber = phoneNumber;
     if (bio) user.profile.bio = bio;
-    let skillsArray;
-    if (skills) {
-      skillsArray = skills.split(",");
+    if (skills) user.profile.skills = skillsArray;
+
+    const file = req.file;
+    if (!req.file) {
+      console.log("No file uploaded");
     }
-    // Resume will come here later
+
+    if (file) {
+      const fileUri = getDataUri(file);
+      const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+      user.profile.resume = cloudResponse.secure_url; // save the cloudinary url
+      user.profile.resumeOriginalName = file.originalname; // Save the original file name
+    }
+
+    console.log(req.body);
+    console.log(req.file);
+    console.log(req.id);
 
     await user.save();
 

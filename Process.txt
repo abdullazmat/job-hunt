@@ -123,3 +123,6 @@ Commit 17  : View Profile Page UI Completed
 
 Commit 18  : Job Description Page UI Completed
 1. Job Description Page UI is finished which will show listing details of job cards
+
+Commit 19  : Update Profile Dialog Box UI 
+1. Update profile dialog box UI is setup along with its backend functionality (WIP-I)

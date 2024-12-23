@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 
 function Header() {
   const { user } = useSelector((state) => state.auth);
+  const userData = user?.user;
 
   return (
     <div>
@@ -55,7 +56,7 @@ function Header() {
             </ul>
 
             <div className="dropdown text-end me-0 me-lg-3">
-              {user ? (
+              {userData ? (
                 <Link
                   to="#"
                   className="d-block link-body-emphasis text-decoration-none dropdown-toggle"
@@ -64,8 +65,8 @@ function Header() {
                 >
                   <img
                     src={
-                      user?.user?.profile?.profilePhoto
-                        ? user.user.profile.profilePhoto
+                      userData?.profile?.profilePhoto
+                        ? userData?.profile.profilePhoto
                         : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                     }
                     alt="mdo"
@@ -103,8 +104,8 @@ function Header() {
                   <div className="d-flex ">
                     <img
                       src={
-                        user?.user?.profile?.profilePhoto
-                          ? user.user.profile.profilePhoto
+                        userData?.userData?.profile?.profilePhoto
+                          ? userData.userData.profile.profilePhoto
                           : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                       }
                       alt="mdo"
@@ -116,8 +117,8 @@ function Header() {
                       className="dropdown-item  "
                       style={{ fontWeight: "bold" }}
                     >
-                      {user?.user?.fullName.charAt(0).toUpperCase() +
-                        user?.user?.fullName.slice(1)}
+                      {userData?.fullName?.charAt(0).toUpperCase() +
+                        userData?.fullName?.slice(1)}
                     </p>
                   </div>
                 </li>

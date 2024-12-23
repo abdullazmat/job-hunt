@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import { USER_API_END_POINT } from "../Utils/constant";
-import { setLoading } from "../Redux/authSlice.js";
+import { setLoading, setUser } from "../Redux/authSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 
 function SignUp() {
@@ -66,6 +66,7 @@ function SignUp() {
         }, 3000);
         return;
       } else {
+        dispatch(setUser(res.data.user));
         dispatch(setLoading(false));
         setSuccess(true);
         setTimeout(() => {
