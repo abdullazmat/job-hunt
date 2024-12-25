@@ -12,7 +12,7 @@ function Profile() {
   const { user } = useSelector((state) => state.auth);
   const userData = user?.user;
 
-  console.log(user);
+  // console.log(user);
   return (
     <div className="container">
       <div className="border p-0 p-sm-5 py-4  rounded-start">
@@ -32,8 +32,10 @@ function Profile() {
             </div>
             <div>
               <h4 className="ms-3 p-0 m-0 fw-bold">
-                {userData?.fullName?.charAt(0).toUpperCase() +
-                  userData?.fullName?.slice(1)}
+                {userData?.fullName
+                  ? userData.fullName.charAt(0).toUpperCase() +
+                    userData.fullName.slice(1)
+                  : "Full Name"}
               </h4>
               <p className="ms-3 p-0 m-0" style={{ fontSize: "0.7rem" }}>
                 Exploring new opportunities and interests

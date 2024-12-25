@@ -96,7 +96,7 @@ function UpdateProfileDialog({ edit, setEdit }) {
   return (
     <div
       className={`modal fade ${edit ? "show" : ""}`}
-      tabindex="-1"
+      tabIndex="-1"
       style={{
         display: edit ? "block" : "none",
         backgroundColor: "rgba(0, 0, 0, 0.5)",

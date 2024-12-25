@@ -4,7 +4,7 @@ function AppliedJobsTable() {
   return (
     <div className="container mt-5">
       <h5 className="fw-bold">Applied Jobs</h5>
-      <table class="table mt-4">
+      <table className="table mt-4">
         <thead className="table-dark">
           <tr>
             <th scope="col">Date</th>

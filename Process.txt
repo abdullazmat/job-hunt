@@ -126,3 +126,7 @@ Commit 18  : Job Description Page UI Completed
 
 Commit 19  : Update Profile Dialog Box UI 
 1. Update profile dialog box UI is setup along with its backend functionality (WIP-I)
+
+
+Commit 20  : Update Profile Dialogue Bugs Solved
+1. Solved the errors on update profile dialogue box.

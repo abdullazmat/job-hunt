@@ -117,8 +117,10 @@ function Header() {
                       className="dropdown-item  "
                       style={{ fontWeight: "bold" }}
                     >
-                      {userData?.fullName?.charAt(0).toUpperCase() +
-                        userData?.fullName?.slice(1)}
+                      {userData?.fullName
+                        ? userData?.fullName.charAt(0).toUpperCase() +
+                          userData?.fullName.slice(1)
+                        : "Guest"}
                     </p>
                   </div>
                 </li>
