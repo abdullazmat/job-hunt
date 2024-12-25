@@ -69,7 +69,7 @@ function Profile() {
         </div>
         <div className="resume ms-2">
           <h5 className="fw-bold mt-4 ">Resume</h5>
-          <a target="_blank" href="https://google.com">
+          <a target="_blank" href={userData?.profile?.resume}>
             {userData?.fullName?.split(" ")[0].charAt(0).toUpperCase() +
               userData?.fullName?.split(" ")[0].slice(1) +
               " "}

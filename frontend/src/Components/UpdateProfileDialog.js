@@ -111,7 +111,6 @@ function UpdateProfileDialog({ edit, setEdit }) {
                 type="button"
                 className="btn-close"
                 aria-label="Close"
-                onClick={() => setEdit(false)} // Close modal
               ></button>
             </div>
             <div className="modal-body">

@@ -130,3 +130,7 @@ Commit 19  : Update Profile Dialog Box UI
 
 Commit 20  : Update Profile Dialogue Bugs Solved
 1. Solved the errors on update profile dialogue box.
+
+
+Commit 21 : Cloudinary PDF Issue Resolved
+1. Solved the cloudinary issue of pdf which is in security settings of Cloudinary to enable
