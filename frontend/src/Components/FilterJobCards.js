@@ -6,6 +6,14 @@ import { useNavigate } from "react-router-dom";
 const FilterJobCards = ({ id, job }) => {
   const navigate = useNavigate();
 
+  const daysAgoFunction = (createdAtTime) => {
+    const currentTime = new Date();
+    const createdAt = new Date(createdAtTime);
+    const difference = currentTime - createdAt;
+    const daysAgo = Math.floor(difference / (1000 * 3600 * 24));
+    return daysAgo;
+  };
+
   return (
     <div
       className="card  shadow-lg bg-body-tertiary rounded mt-3"
@@ -13,7 +21,12 @@ const FilterJobCards = ({ id, job }) => {
     >
       <div className="mt-3 d-flex align-items-center justify-content-between px-3">
         <p className="m-0 p-0">
-          <i className="fw-semibold">2 days ago</i>
+          <i className="fw-semibold">
+            {daysAgoFunction(job.createdAt) === 0
+              ? "Today"
+              : daysAgoFunction(job.createdAt)}{" "}
+            days ago
+          </i>
         </p>
         <FontAwesomeIcon
           icon={faBookmark}

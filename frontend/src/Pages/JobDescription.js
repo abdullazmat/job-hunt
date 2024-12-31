@@ -1,15 +1,50 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { JOB_API_END_POINT } from "../Utils/constant";
+import { useDispatch } from "react-redux";
+import { setJobDesc } from "../Redux/jobSlice";
+import { useEffect } from "react";
+import { useState } from "react";
 
 function JobDescription() {
-  const isApplied = true;
+  const dispatch = useDispatch();
+  const params = useParams();
+  const jobId = params.id;
+
+  const { user } = useSelector((state) => state.auth);
+  const { jobDesc } = useSelector((state) => state.job);
+
+  const isApplied =
+    jobDesc?.applications?.some(
+      (application) => application.applicant === user?._id
+    ) || false;
+
+  useEffect(() => {
+    try {
+      const getjob = async () => {
+        const response = await axios.get(`${JOB_API_END_POINT}/get/${jobId}`, {
+          withCredentials: true,
+        });
+        if (response.data.success) {
+          dispatch(setJobDesc(response.data.job));
+          console.log(response.data.job);
+        }
+      };
+      getjob();
+    } catch (error) {
+      console.log(error);
+    }
+  }, [jobId, dispatch, user?._id]);
+
   return (
     <div className="container border p-3 p-md-5">
       <div className="d-flex justify-content-between">
         <h4 className="fw-bold p-0 m-0">FrontEnd Developer</h4>
         <button
           disabled={isApplied}
-          class={`badge text-bg-${
+          className={`badge text-bg-${
             isApplied ? "primary" : "dark"
           } d-flex justify-content-center align-items-center`}
         >
@@ -54,31 +89,35 @@ function JobDescription() {
         <h5 className="mt-4">Job Description</h5>
         <div className="d-flex mt-4">
           <p className="fw-bold">Role: </p>
-          <p className="ms-2">FrontEnd Developer</p>
+          <p className="ms-2">{jobDesc?.title}</p>
         </div>
         <div className="d-flex mt-2">
           <p className="fw-bold">Location: </p>
-          <p className="ms-2">Hyderabad</p>
+          <p className="ms-2">{jobDesc?.location}</p>
         </div>
         <div className="mt-2">
           <p className="fw-bold">Description: </p>
-          <p className="">Exploring new opportunities and interests</p>
+          <p className="">{jobDesc?.description}</p>
         </div>
         <div className="d-flex mt-2">
           <p className="fw-bold">Experience: </p>
-          <p className="ms-2">2 Years</p>
+          <p className="ms-2">{`${
+            jobDesc?.experienceLevel === 1
+              ? "1 Year"
+              : jobDesc?.experienceLevel + "Years"
+          }`}</p>
         </div>
         <div className="d-flex mt-2">
           <p className="fw-bold">Salary: </p>
-          <p className="ms-2">12 LPA</p>
+          <p className="ms-2">{jobDesc?.salary}</p>
         </div>
         <div className="d-flex mt-2">
           <p className="fw-bold">Total Applicants: </p>
-          <p className="ms-2">4</p>
+          <p className="ms-2">{jobDesc?.applications?.length}</p>
         </div>
         <div className="d-flex mt-2">
-          <p className="fw-bold">Location: </p>
-          <p className="ms-2">11-12-2024 </p>
+          <p className="fw-bold">Listed: </p>
+          <p className="ms-2">{jobDesc?.updatedAt.split("T")[0]}</p>
         </div>
       </div>
     </div>

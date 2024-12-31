@@ -141,3 +141,6 @@ Commit 22 : User Log Out Functionality
 Commit 23 : Job Data Fetched Through Hook
 1. Create a hook folder and create useGetAllJobs hook file to fetch data through useEffect so that data is displayed on homepage and on the redux.
 2. Then we use the updated data from redux using use State of Job slice and fetch and display data on homepage and JOb page.
+
+Commit 24 : Already Applied Job Functionality
+1. Check if user has already applied to job or not by checking through applicants in job returned data.
