@@ -1,8 +1,8 @@
 import FilterJobCards from "./FilterJobCards";
+import { useSelector } from "react-redux";
 
 function FilteredJobs() {
-  const filterJobs = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
-  const jobId = "safdfdsfdsfsd";
+  const { allJobs } = useSelector((store) => store.job);
 
   return (
     <div className="container-fluid p-0">
@@ -239,11 +239,11 @@ function FilteredJobs() {
             Listing Results:
           </h2>
           <div>
-            {filterJobs && (
+            {allJobs && (
               <div className="row g-3">
-                {filterJobs.map((job, index) => (
+                {allJobs.map((job, index) => (
                   <div key={index} className="col-lg-4 col-md-6 col-sm-12 ">
-                    <FilterJobCards id={jobId} />
+                    <FilterJobCards id={job._id} job={job} />
                   </div>
                 ))}
               </div>

@@ -1,4 +1,5 @@
 import React from "react";
+import { useSelector } from "react-redux";
 
 function JobDescription() {
   const isApplied = true;
@@ -25,7 +26,7 @@ function JobDescription() {
               fontSize: ".7rem",
             }}
           >
-            2 Positions
+            Positions
           </p>
           <p
             className="  fw-bold mb-2 px-2  px-xl-3"

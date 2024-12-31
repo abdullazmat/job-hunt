@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-regular-svg-icons";
 import { useNavigate } from "react-router-dom";
 
-const FilterJobCards = ({ id }) => {
+const FilterJobCards = ({ id, job }) => {
   const navigate = useNavigate();
 
   return (
@@ -25,13 +25,13 @@ const FilterJobCards = ({ id }) => {
         <div>
           <img
             src="https://static.vecteezy.com/system/resources/previews/008/214/517/non_2x/abstract-geometric-logo-or-infinity-line-logo-for-your-company-free-vector.jpg"
-            alt="company logo"
+            alt={job?.company?.name}
             className="img-fluid"
             style={{ width: "50px", height: "50px" }}
           />
         </div>
         <div>
-          <p className="ms-2 p-0 m-0">Company Name</p>
+          <p className="ms-2 p-0 m-0">{job?.company?.name}</p>
           <p
             className=" ms-2 p-0 m-0 fw-semibold"
             style={{ fontSize: "0.7rem" }}
@@ -41,11 +41,8 @@ const FilterJobCards = ({ id }) => {
         </div>
       </div>
       <div className="card-body">
-        <h5 className="card-title text-start fw-bold">Job Title</h5>
-        <p className="card-text text-start">
-          Some quick example text to build on the job title and make up the bulk
-          of the card's content.
-        </p>
+        <h5 className="card-title text-start fw-bold">{job?.title}</h5>
+        <p className="card-text text-start">{job?.description}</p>
         <div className="d-flex flex-wrap gap-2 justify-content-center ">
           <p
             className=" fw-bold mb-2 px-2  px-xl-3"
@@ -55,7 +52,7 @@ const FilterJobCards = ({ id }) => {
               fontSize: ".7rem",
             }}
           >
-            2 Positions
+            {job?.position} Positions
           </p>
           <p
             className="  fw-bold mb-2 px-2  px-xl-3"
@@ -65,7 +62,7 @@ const FilterJobCards = ({ id }) => {
               fontSize: ".7rem",
             }}
           >
-            PartTime
+            {job?.jobType}
           </p>
           <p
             className=" fw-bold mb-2 px-2 px-xl-3"
@@ -75,7 +72,7 @@ const FilterJobCards = ({ id }) => {
               fontSize: ".7rem",
             }}
           >
-            12LPA
+            {job?.salary}
           </p>
         </div>
         <div className="d-flex mt-3 ">
