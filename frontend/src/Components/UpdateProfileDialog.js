@@ -56,7 +56,7 @@ function UpdateProfileDialog({ edit, setEdit }) {
       dispatch(setLoading(true));
       const res = await axios.post(
         `${USER_API_END_POINT}/profile/update`,
-        formData,
+        formDataObject,
         {
           headers: { "Content-Type": "multipart/form-data" },
           withCredentials: true,
@@ -111,6 +111,7 @@ function UpdateProfileDialog({ edit, setEdit }) {
                 type="button"
                 className="btn-close"
                 aria-label="Close"
+                onClick={() => setEdit(false)}
               ></button>
             </div>
             <div className="modal-body">

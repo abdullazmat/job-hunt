@@ -38,7 +38,9 @@ function Profile() {
                   : "Full Name"}
               </h4>
               <p className="ms-3 p-0 m-0" style={{ fontSize: "0.7rem" }}>
-                Exploring new opportunities and interests
+                {userData?.profile?.bio
+                  ? userData.profile.bio
+                  : "Exploring new opportunities and interests"}
               </p>
             </div>
           </div>
@@ -60,7 +62,7 @@ function Profile() {
         <div className="mt-4">
           <h5 className="fw-bold ms-2">Skills</h5>
           <div className="d-flex mt-3 ms-2">
-            {userData?.profile?.skills[0]?.split(",").map((skill, index) => (
+            {userData?.profile?.skills?.map((skill, index) => (
               <span key={index} className="badge rounded-pill bg-primary me-2">
                 {skill}
               </span>
@@ -70,10 +72,7 @@ function Profile() {
         <div className="resume ms-2">
           <h5 className="fw-bold mt-4 ">Resume</h5>
           <a target="_blank" href={userData?.profile?.resume}>
-            {userData?.fullName?.split(" ")[0].charAt(0).toUpperCase() +
-              userData?.fullName?.split(" ")[0].slice(1) +
-              " "}
-            Resume PDF
+            {userData?.profile?.resumeOriginalName}
           </a>
         </div>
       </div>

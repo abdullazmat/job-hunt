@@ -2,11 +2,37 @@ import React from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faUser, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
+import axios from "axios";
+import { USER_API_END_POINT } from "../Utils/constant";
+import { useNavigate } from "react-router-dom";
+import { setUser } from "../Redux/authSlice";
+import { useState } from "react";
 
 function Header() {
   const { user } = useSelector((state) => state.auth);
   const userData = user?.user;
+  const [success, setSuccess] = useState(false);
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const logoutHandler = async () => {
+    try {
+      const res = await axios.get(`${USER_API_END_POINT}/logout`, {
+        withCredentials: true,
+      });
+      if (res.data.success) {
+        setSuccess(true);
+        setTimeout(() => {
+          setSuccess(false);
+        }, 3000);
+        dispatch(setUser(null));
+        navigate("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <div>
@@ -148,6 +174,7 @@ function Header() {
                     <Link
                       className="dropdown-item text-black view-profile-nav"
                       to="#"
+                      onClick={logoutHandler}
                     >
                       Log out
                     </Link>
@@ -158,6 +185,24 @@ function Header() {
           </div>
         </div>
       </header>
+      {success && (
+        <div
+          className="toast-container position-fixed bottom-0 end-0 p-3"
+          // style={{ bottom: "50px", right: "10px" }} // Adjust these values
+        >
+          <div
+            id="liveToast"
+            className="toast show"
+            role="alert"
+            aria-live="assertive"
+            aria-atomic="true"
+          >
+            <div className="toast-body text-success fw-bold">
+              Logged Out Successfully
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }
