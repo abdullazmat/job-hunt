@@ -144,3 +144,7 @@ Commit 23 : Job Data Fetched Through Hook
 
 Commit 24 : Already Applied Job Functionality
 1. Check if user has already applied to job or not by checking through applicants in job returned data.
+
+Commit 25 : Apply to Job Functionality 
+1. Used jobApplyHandler function to click on Apply job if user has not already applied.
+2. If user didnt applied, we used setJobDesc api and update the apply status

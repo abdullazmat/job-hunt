@@ -2,24 +2,61 @@ import React from "react";
 import { useParams } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { JOB_API_END_POINT } from "../Utils/constant";
+import {
+  JOB_API_END_POINT,
+  APPLICATION_API_END_POINT,
+} from "../Utils/constant";
 import { useDispatch } from "react-redux";
 import { setJobDesc } from "../Redux/jobSlice";
 import { useEffect } from "react";
-import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
 function JobDescription() {
+  const naivgate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
   const jobId = params.id;
+  console.log("Job ID:", jobId);
 
   const { user } = useSelector((state) => state.auth);
+  const userData = user?.user;
+  console.log("UserId:", userData?._id);
   const { jobDesc } = useSelector((state) => state.job);
+  console.log(
+    "Applicant Id:",
+    jobDesc.applications.map((app) => app.applicant._id)
+  );
 
-  const isApplied =
-    jobDesc?.applications?.some(
-      (application) => application.applicant === user?._id
-    ) || false;
+  const isApplied = jobDesc?.applications
+    .map((app) => app?.applicant?._id)
+    .includes(userData?._id);
+  console.log("Is Applied:", isApplied);
+
+  const applyJobHandler = async () => {
+    try {
+      const response = await axios.post(
+        `${APPLICATION_API_END_POINT}/apply/${jobId}`,
+        {},
+        {
+          withCredentials: true,
+        }
+      );
+      if (response.data.success) {
+        const updatedJob = await axios.get(
+          `${JOB_API_END_POINT}/get/${jobId}`,
+          {
+            withCredentials: true,
+          }
+        );
+        if (updatedJob.data.success) {
+          dispatch(setJobDesc(updatedJob.data.job));
+        }
+        console.log("Job Aplly Function:", response.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   useEffect(() => {
     try {
@@ -29,14 +66,16 @@ function JobDescription() {
         });
         if (response.data.success) {
           dispatch(setJobDesc(response.data.job));
-          console.log(response.data.job);
         }
       };
       getjob();
     } catch (error) {
       console.log(error);
+      if (error.response?.status === 401) {
+        naivgate("/login");
+      }
     }
-  }, [jobId, dispatch, user?._id]);
+  }, [jobId, dispatch, userData?._id]);
 
   return (
     <div className="container border p-3 p-md-5">
@@ -44,6 +83,7 @@ function JobDescription() {
         <h4 className="fw-bold p-0 m-0">FrontEnd Developer</h4>
         <button
           disabled={isApplied}
+          onClick={isApplied ? null : applyJobHandler}
           className={`badge text-bg-${
             isApplied ? "primary" : "dark"
           } d-flex justify-content-center align-items-center`}

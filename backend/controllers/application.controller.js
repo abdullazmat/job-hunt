@@ -13,7 +13,7 @@ export const applyJob = async (req, res) => {
       });
     }
     // Check if user has already applied for the job
-    const excistingApplication = await Job.findOne({
+    const excistingApplication = await Application.findOne({
       job: jobId,
       applicant: userId,
     });
@@ -37,7 +37,7 @@ export const applyJob = async (req, res) => {
     });
     job.applications.push(newApplication._id);
     await job.save();
-    return res.status(200).json({
+    return res.status(201).json({
       success: true,
       message: "Applied successfully",
     });
@@ -126,7 +126,7 @@ export const updateApplicationStatus = async (req, res) => {
       });
     }
     // Update the status of the application
-    application.status = status;
+    application.status = status.toLowerCase();
     await application.save();
     return res.status(200).json({
       success: true,
