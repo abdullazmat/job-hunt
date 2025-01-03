@@ -2,12 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  setLoading,
-  setUser,
-  setError,
-  setSuccess,
-} from "../Redux/authSlice.js";
+import { setUser } from "../Redux/authSlice.js";
 
 function LogIn() {
   // Use States
@@ -20,7 +15,11 @@ function LogIn() {
   // Redux States
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  const { loading, success, error, user } = useSelector((state) => state.auth);
+
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+  const { user } = useSelector((state) => state.auth);
 
   // Functions
 
@@ -34,7 +33,7 @@ function LogIn() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      dispatch(setLoading(true));
+      setLoading(true);
       const res = await fetch("/api/v1/user/login", {
         method: "POST",
         headers: {
@@ -45,26 +44,27 @@ function LogIn() {
 
       const data = await res.json();
       if (data.success === false) {
-        dispatch(setLoading(false));
-        dispatch(setError(data.message));
+        setLoading(false);
+        setError(data.message);
         setTimeout(() => {
-          dispatch(setError(null));
+          setError(null);
         }, 3000);
         return;
       } else {
-        dispatch(setLoading(false));
-        dispatch(setUser(data));
-        dispatch(setSuccess(true));
+        setLoading(false);
+        dispatch(setUser(data.user));
+        console.log("User Login Dispatch:", data);
+        setSuccess(true);
         setTimeout(() => {
-          dispatch(setSuccess(false));
+          setSuccess(false);
           navigate("/");
         }, 2000);
       }
     } catch (error) {
-      dispatch(setLoading(false));
-      dispatch(setError(error.message));
+      setLoading(false);
+      setError(error.message);
       setTimeout(() => {
-        dispatch(setError(null));
+        setError(null);
       }, 3000);
     }
   };

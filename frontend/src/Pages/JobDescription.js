@@ -19,8 +19,7 @@ function JobDescription() {
   console.log("Job ID:", jobId);
 
   const { user } = useSelector((state) => state.auth);
-  const userData = user?.user;
-  console.log("UserId:", userData?._id);
+  console.log("UserId:", user?._id);
   const { jobDesc } = useSelector((state) => state.job);
   console.log(
     "Applicant Id:",
@@ -29,7 +28,7 @@ function JobDescription() {
 
   const isApplied = jobDesc?.applications
     .map((app) => app?.applicant?._id)
-    .includes(userData?._id);
+    .includes(user?._id);
   console.log("Is Applied:", isApplied);
 
   const applyJobHandler = async () => {
@@ -59,11 +58,16 @@ function JobDescription() {
   };
 
   useEffect(() => {
+    if (!user) {
+      naivgate("/login");
+      return;
+    }
     try {
       const getjob = async () => {
         const response = await axios.get(`${JOB_API_END_POINT}/get/${jobId}`, {
           withCredentials: true,
         });
+
         if (response.data.success) {
           dispatch(setJobDesc(response.data.job));
         }
@@ -75,7 +79,7 @@ function JobDescription() {
         naivgate("/login");
       }
     }
-  }, [jobId, dispatch, userData?._id]);
+  }, [jobId, dispatch, user?._id]);
 
   return (
     <div className="container border p-3 p-md-5">

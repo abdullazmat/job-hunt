@@ -11,7 +11,7 @@ import { useState } from "react";
 
 function Header() {
   const { user } = useSelector((state) => state.auth);
-  const userData = user?.user;
+  console.log("Header", user);
   const [success, setSuccess] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
@@ -82,7 +82,7 @@ function Header() {
             </ul>
 
             <div className="dropdown text-end me-0 me-lg-3">
-              {userData ? (
+              {user ? (
                 <Link
                   to="#"
                   className="d-block link-body-emphasis text-decoration-none dropdown-toggle"
@@ -91,8 +91,8 @@ function Header() {
                 >
                   <img
                     src={
-                      userData?.profile?.profilePhoto
-                        ? userData?.profile.profilePhoto
+                      user?.profile?.profilePhoto
+                        ? user?.profile.profilePhoto
                         : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                     }
                     alt="mdo"
@@ -130,8 +130,8 @@ function Header() {
                   <div className="d-flex ">
                     <img
                       src={
-                        userData?.userData?.profile?.profilePhoto
-                          ? userData.userData.profile.profilePhoto
+                        user?.user?.profile?.profilePhoto
+                          ? user.user.profile.profilePhoto
                           : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                       }
                       alt="mdo"
@@ -143,9 +143,9 @@ function Header() {
                       className="dropdown-item  "
                       style={{ fontWeight: "bold" }}
                     >
-                      {userData?.fullName
-                        ? userData?.fullName.charAt(0).toUpperCase() +
-                          userData?.fullName.slice(1)
+                      {user?.fullName
+                        ? user?.fullName.charAt(0).toUpperCase() +
+                          user?.fullName.slice(1)
                         : "Guest"}
                     </p>
                   </div>

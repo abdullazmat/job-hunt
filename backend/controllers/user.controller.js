@@ -94,7 +94,7 @@ export const login = async (req, res) => {
     const tokenData = {
       userId: user._id,
     };
-    const token = jwt.sign(tokenData, process.env.SECRET_KEY, {
+    const token = await jwt.sign(tokenData, process.env.SECRET_KEY, {
       expiresIn: "1d",
     });
 
@@ -151,9 +151,18 @@ export const logout = async (req, res) => {
 export const updateProfile = async (req, res) => {
   try {
     const { fullName, email, phoneNumber, bio, skills } = req.body;
-    const skillsArray = Array.isArray(skills)
-      ? skills
-      : skills.split(",").map((skill) => skill.trim());
+    const file = req.file;
+    if (req.file) {
+      const fileUri = getDataUri(file);
+      const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+      user.profile.resume = cloudResponse.secure_url; // save the cloudinary url
+      user.profile.resumeOriginalName = file.originalname; // Save the original file name
+    }
+
+    let skillsArray;
+    if (skills) {
+      skillsArray = skills.split(",");
+    }
 
     // Check if user is verified
     const userId = req.id; // Middleware Authenticated user id
@@ -169,23 +178,7 @@ export const updateProfile = async (req, res) => {
     if (email) user.email = email;
     if (phoneNumber) user.phoneNumber = phoneNumber;
     if (bio) user.profile.bio = bio;
-    if (skillsArray) user.profile.skills = skillsArray;
-
-    const file = req.file;
-    if (!req.file) {
-      console.log("No file uploaded");
-    }
-
-    if (file) {
-      const fileUri = getDataUri(file);
-      const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
-      user.profile.resume = cloudResponse.secure_url; // save the cloudinary url
-      user.profile.resumeOriginalName = file.originalname; // Save the original file name
-    }
-
-    console.log(req.body);
-    console.log(req.file);
-    console.log(req.id);
+    if (skills) user.profile.skills = skillsArray;
 
     await user.save();
 

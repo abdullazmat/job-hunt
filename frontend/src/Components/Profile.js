@@ -1,18 +1,31 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import { useSelector } from "react-redux";
 import AppliedJobsTable from "./AppliedJobsTable";
-import { useState } from "react";
 import UpdateProfileDialog from "./UpdateProfileDialog";
+import axios from "axios";
+import { USER_API_END_POINT } from "../Utils/constant";
+import { setUser } from "../Redux/authSlice";
+import { useDispatch } from "react-redux";
 
-function Profile() {
+const Profile = () => {
   const [edit, setEdit] = useState(false);
   const { user } = useSelector((state) => state.auth);
-  const userData = user?.user;
+  console.log("Profile", user);
+  const dispatch = useDispatch();
 
-  // console.log(user);
+  // useEffect(() => {
+  //   // Re-fetch the updated user data
+  //   axios
+  //     .get(`${USER_API_END_POINT}/current-user`, { withCredentials: true })
+  //     .then((res) => {
+  //       dispatch(setUser(res.data.user));
+  //     })
+  //     .catch(console.error);
+  // }, []);
+
   return (
     <div className="container">
       <div className="border p-0 p-sm-5 py-4  rounded-start">
@@ -21,25 +34,25 @@ function Profile() {
             <div>
               <img
                 src={
-                  userData?.profile?.profilePhoto
-                    ? userData?.profile.profilePhoto
+                  user?.profile?.profilePhoto
+                    ? user?.profile?.profilePhoto
                     : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                 }
-                alt={user?.user?.fullName}
+                alt={user?.fullName}
                 className="img-fluid rounded-circle"
                 style={{ width: "100px", height: "100px" }}
               />
             </div>
             <div>
               <h4 className="ms-3 p-0 m-0 fw-bold">
-                {userData?.fullName
-                  ? userData.fullName.charAt(0).toUpperCase() +
-                    userData.fullName.slice(1)
+                {user?.fullName
+                  ? user?.fullName.charAt(0).toUpperCase() +
+                    user?.fullName.slice(1)
                   : "Full Name"}
               </h4>
               <p className="ms-3 p-0 m-0" style={{ fontSize: "0.7rem" }}>
-                {userData?.profile?.bio
-                  ? userData.profile.bio
+                {user?.profile?.bio
+                  ? user?.profile?.bio
                   : "Exploring new opportunities and interests"}
               </p>
             </div>
@@ -53,26 +66,35 @@ function Profile() {
         </div>
         <div className="d-flex mt-4 align-items-center ms-2">
           <FontAwesomeIcon icon={faEnvelope} className="me-3" />
-          <span className="p-0 m-0">{userData?.email}</span>
+          <span className="p-0 m-0">{user?.email}</span>
         </div>
         <div className="d-flex mt-4 align-items-center ms-2">
           <FontAwesomeIcon icon={faPhone} className="me-3" />
-          <span className="p-0 m-0">{userData?.phoneNumber}</span>
+          <span className="p-0 m-0">{user?.phoneNumber}</span>
         </div>
         <div className="mt-4">
           <h5 className="fw-bold ms-2">Skills</h5>
           <div className="d-flex mt-3 ms-2">
-            {userData?.profile?.skills?.map((skill, index) => (
-              <span key={index} className="badge rounded-pill bg-primary me-2">
-                {skill}
-              </span>
-            ))}
+            {user?.profile?.skills.length !== 0 ? (
+              user?.profile?.skills?.map((skill, index) => (
+                <span
+                  key={index}
+                  className="badge rounded-pill bg-primary me-2"
+                >
+                  {skill}
+                </span>
+              ))
+            ) : (
+              <span>NA</span>
+            )}
           </div>
         </div>
         <div className="resume ms-2">
           <h5 className="fw-bold mt-4 ">Resume</h5>
-          <a target="_blank" href={userData?.profile?.resume}>
-            {userData?.profile?.resumeOriginalName}
+          <a target="_blank" href={user?.profile?.resume}>
+            {user?.profile?.resumeOriginalName
+              ? user?.profile?.resumeOriginalName
+              : "NA"}
           </a>
         </div>
       </div>
@@ -80,6 +102,6 @@ function Profile() {
       <UpdateProfileDialog edit={edit} setEdit={setEdit} />
     </div>
   );
-}
+};
 
 export default Profile;

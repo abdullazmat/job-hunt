@@ -1,36 +1,32 @@
 import React from "react";
 import { useState } from "react";
-import { useSelector } from "react-redux";
 import axios from "axios";
 import { USER_API_END_POINT } from "../Utils/constant";
-import { setLoading, setUser } from "../Redux/authSlice.js";
-import { useDispatch } from "react-redux";
+import { setUser } from "../Redux/authSlice.js";
+import { useDispatch, useSelector } from "react-redux";
 
 function UpdateProfileDialog({ edit, setEdit }) {
-  const dispatch = useDispatch();
-
-  const { user, loading } = useSelector((state) => state.auth);
-  const userData = user?.user;
+  const { user } = useSelector((state) => state.auth);
+  // const user = user?.user;
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const [loading, setLoading] = useState(false);
+
+  const dispatch = useDispatch();
 
   const [formData, setFormData] = useState({
-    fullName: userData?.fullName || "",
-    email: userData?.email || "",
-    phoneNumber: userData?.phoneNumber || "",
-    bio: userData?.profile?.bio || "",
-    skills: userData?.profile?.skills?.map((skill) => skill) || [],
-    file: userData?.profile?.resume || null,
+    fullName: user?.fullName || "",
+    email: user?.email || "",
+    phoneNumber: user?.phoneNumber || "",
+    bio: user?.profile?.bio || "",
+    skills: user?.profile?.skills?.map((skill) => skill) || [],
+    file: user?.profile?.resume || "",
   });
 
   const handleChange = (e) => {
-    const { name, value } = e.target;
     setFormData({
       ...formData,
-      [name]:
-        name === "skills"
-          ? value.split(",").map((skill) => skill.trim())
-          : value,
+      [e.target.name]: e.target.value,
     });
   };
 
@@ -39,8 +35,6 @@ function UpdateProfileDialog({ edit, setEdit }) {
     setFormData({ ...formData, file });
   };
 
-  // console.log(formData);
-
   const handleSubmit = async (e) => {
     e.preventDefault();
     const formDataObject = new FormData();
@@ -48,13 +42,13 @@ function UpdateProfileDialog({ edit, setEdit }) {
     formDataObject.append("email", formData.email);
     formDataObject.append("phoneNumber", formData.phoneNumber);
     formDataObject.append("bio", formData.bio);
-    formDataObject.append("skills", formData.skills.join(","));
+    formDataObject.append("skills", formData.skills);
     if (formData.file) {
       formDataObject.append("file", formData.file);
     }
     try {
-      dispatch(setLoading(true));
-      const res = await axios.post(
+      setLoading(true);
+      const res = await axios.put(
         `${USER_API_END_POINT}/profile/update`,
         formDataObject,
         {
@@ -63,34 +57,26 @@ function UpdateProfileDialog({ edit, setEdit }) {
         }
       );
 
-      if (!res.data.success) {
-        dispatch(setLoading(false));
-        setError(res.data.message);
-        setTimeout(() => {
-          setError(null);
-        }, 3000);
-        return;
-      } else {
+      if (res.data.success) {
         dispatch(setUser(res.data.user));
-        dispatch(setLoading(false));
+        console.log("User Update Dispatch:", res.data.user);
+
         setSuccess(true);
         setTimeout(() => {
           setSuccess(false);
         }, 3000);
       }
     } catch (error) {
-      dispatch(setLoading(false));
-      if (error.response) {
-        setError(error.response.data.message);
-      } else {
-        setError("Something went wrong");
-      }
+      console.log(error);
+      setError(error.response.data.message);
       setTimeout(() => {
         setError(null);
       }, 3000);
     } finally {
-      dispatch(setLoading(false));
+      setLoading(false);
     }
+    setEdit(false);
+    console.log("formData", formData);
   };
 
   return (
@@ -149,7 +135,6 @@ function UpdateProfileDialog({ edit, setEdit }) {
                   Phone Number
                 </label>
                 <input
-                  type="tel"
                   className="form-control "
                   id="phoneNumber"
                   name="phoneNumber"
@@ -184,14 +169,14 @@ function UpdateProfileDialog({ edit, setEdit }) {
                 />
               </div>
               <div className="resume-info-edit mt-2">
-                <label htmlFor="resume" className="form-label fw-medium">
+                <label htmlFor="file" className="form-label fw-medium">
                   Resume
                 </label>
                 <input
                   type="file"
                   className="form-control "
-                  id="resume"
-                  name="resume"
+                  id="file"
+                  name="file"
                   accept="application/pdf"
                   onChange={handleFileChange}
                 />

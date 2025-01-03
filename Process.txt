@@ -148,3 +148,7 @@ Commit 24 : Already Applied Job Functionality
 Commit 25 : Apply to Job Functionality 
 1. Used jobApplyHandler function to click on Apply job if user has not already applied.
 2. If user didnt applied, we used setJobDesc api and update the apply status
+
+Commit 25 : Adding Private Routes to Website
+1. Used Private routes to redirect if not logged in to Login Page  
+2. Added Persist reducer in app.js and store to save data so it dont get lost on reloading

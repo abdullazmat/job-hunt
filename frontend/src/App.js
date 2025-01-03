@@ -8,6 +8,7 @@ import Footer from "./Components/Footer.js";
 import Browse from "./Pages/Browse.js";
 import Profile from "./Components/Profile.js";
 import JobDescription from "./Pages/JobDescription.js";
+import PrivateRoute from "./Components/PrivateRoute.js";
 
 function App() {
   return (
@@ -21,8 +22,10 @@ function App() {
         <Route path="/login" element={<LogIn />}></Route>
         <Route path="/jobs" element={<Jobs />}></Route>
         <Route path="/browse" element={<Browse />}></Route>
+        {/* <Route element={<PrivateRoute />}> */}
         <Route path="/profile" element={<Profile />}></Route>
         <Route path="/job/description/:id" element={<JobDescription />}></Route>
+        {/* </Route> */}
       </Routes>
       <Footer />
     </BrowserRouter>
