@@ -1,5 +1,5 @@
 import React from "react";
-import FilterJobCards from "../Components/FilterJobCards";
+import FilterJobCards from "../Components/user/FilterJobCards";
 import { useSelector } from "react-redux";
 
 function Browse() {

@@ -152,3 +152,7 @@ Commit 25 : Apply to Job Functionality
 Commit 25 : Adding Private Routes to Website
 1. Used Private routes to redirect if not logged in to Login Page  
 2. Added Persist reducer in app.js and store to save data so it dont get lost on reloading
+
+Commit 26 : Recruiter Login Route Setup
+1. Set up condiition in Navbar so that View profile option is disable for recruiter logins.
+2. Similarly, added a condition on homepage using useEffect that if role is recruiter, show company dashboard instead of users  

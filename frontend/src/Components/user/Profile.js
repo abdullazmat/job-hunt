@@ -1,30 +1,15 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPen, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import { useSelector } from "react-redux";
 import AppliedJobsTable from "./AppliedJobsTable";
 import UpdateProfileDialog from "./UpdateProfileDialog";
-import axios from "axios";
-import { USER_API_END_POINT } from "../Utils/constant";
-import { setUser } from "../Redux/authSlice";
-import { useDispatch } from "react-redux";
 
 const Profile = () => {
   const [edit, setEdit] = useState(false);
   const { user } = useSelector((state) => state.auth);
   console.log("Profile", user);
-  const dispatch = useDispatch();
-
-  // useEffect(() => {
-  //   // Re-fetch the updated user data
-  //   axios
-  //     .get(`${USER_API_END_POINT}/current-user`, { withCredentials: true })
-  //     .then((res) => {
-  //       dispatch(setUser(res.data.user));
-  //     })
-  //     .catch(console.error);
-  // }, []);
 
   return (
     <div className="container">

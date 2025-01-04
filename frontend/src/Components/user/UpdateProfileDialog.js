@@ -1,8 +1,8 @@
 import React from "react";
 import { useState } from "react";
 import axios from "axios";
-import { USER_API_END_POINT } from "../Utils/constant";
-import { setUser } from "../Redux/authSlice.js";
+import { USER_API_END_POINT } from "../../Utils/constant";
+import { setUser } from "../../Redux/authSlice.js";
 import { useDispatch, useSelector } from "react-redux";
 
 function UpdateProfileDialog({ edit, setEdit }) {

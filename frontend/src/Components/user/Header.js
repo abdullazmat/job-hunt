@@ -4,9 +4,9 @@ import { faUser, faRightFromBracket } from "@fortawesome/free-solid-svg-icons";
 import { Link } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import axios from "axios";
-import { USER_API_END_POINT } from "../Utils/constant";
+import { USER_API_END_POINT } from "../../Utils/constant";
 import { useNavigate } from "react-router-dom";
-import { setUser } from "../Redux/authSlice";
+import { setUser } from "../../Redux/authSlice";
 import { useState } from "react";
 
 function Header() {
@@ -51,35 +51,58 @@ function Header() {
               </h3>
             </Link>
 
-            <ul className="nav col-12 col-lg-auto ms-lg-auto me-0 me-lg-5 mb-2 justify-content-center mb-md-0">
-              <li>
-                <Link
-                  to="/"
-                  className="nav-link px-2  text-black nav-links"
-                  style={{ fontWeight: "bold" }}
-                >
-                  Home
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/jobs"
-                  className="nav-link px-2 text-black  nav-links"
-                  style={{ fontWeight: "bold" }}
-                >
-                  Jobs
-                </Link>
-              </li>
-              <li>
-                <Link
-                  to="/browse"
-                  className="nav-link px-2 text-black nav-links"
-                  style={{ fontWeight: "bold" }}
-                >
-                  Browse
-                </Link>
-              </li>
-            </ul>
+            {user && user.role === "recruiter" ? (
+              <ul className="nav col-12 col-lg-auto ms-lg-auto me-0 me-lg-5 mb-2 justify-content-center mb-md-0">
+                <li>
+                  <Link
+                    to="/admin-companies"
+                    className="nav-link px-2  text-black nav-links"
+                    style={{ fontWeight: "bold" }}
+                  >
+                    Companies
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/admin-jobs"
+                    className="nav-link px-2 text-black  nav-links"
+                    style={{ fontWeight: "bold" }}
+                  >
+                    Jobs
+                  </Link>
+                </li>
+              </ul>
+            ) : (
+              <ul className="nav col-12 col-lg-auto ms-lg-auto me-0 me-lg-5 mb-2 justify-content-center mb-md-0">
+                <li>
+                  <Link
+                    to="/"
+                    className="nav-link px-2  text-black nav-links"
+                    style={{ fontWeight: "bold" }}
+                  >
+                    Home
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/jobs"
+                    className="nav-link px-2 text-black  nav-links"
+                    style={{ fontWeight: "bold" }}
+                  >
+                    Jobs
+                  </Link>
+                </li>
+                <li>
+                  <Link
+                    to="/browse"
+                    className="nav-link px-2 text-black nav-links"
+                    style={{ fontWeight: "bold" }}
+                  >
+                    Browse
+                  </Link>
+                </li>
+              </ul>
+            )}
 
             <div className="dropdown text-end me-0 me-lg-3">
               {user ? (
@@ -151,17 +174,20 @@ function Header() {
                   </div>
                 </li>
 
-                <li>
-                  <div className="d-flex align-items-center">
-                    <FontAwesomeIcon icon={faUser} className="ms-2" />
-                    <Link
-                      className="dropdown-item text-black view-profile-nav"
-                      to="/profile"
-                    >
-                      View Profile
-                    </Link>
-                  </div>
-                </li>
+                {user && user.role === "student" && (
+                  <li>
+                    <div className="d-flex align-items-center">
+                      <FontAwesomeIcon icon={faUser} className="ms-2" />
+
+                      <Link
+                        className="dropdown-item text-black view-profile-nav"
+                        to="/profile"
+                      >
+                        View Profile
+                      </Link>
+                    </div>
+                  </li>
+                )}
                 <li>
                   <hr className="dropdown-divider" />
                 </li>
