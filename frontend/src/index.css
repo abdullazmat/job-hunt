@@ -60,3 +60,14 @@ html {
 .edit-profile-icon {
   cursor: pointer;
 }
+
+/* Footer Viewport */
+.app-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.flex-grow-1 {
+  flex-grow: 1; /* Pushes the footer to the bottom */
+}

@@ -3,15 +3,15 @@ import { Company } from "../models/company.model.js";
 // Company Registration controller
 export const registerComapny = async (req, res) => {
   try {
-    const { name } = req.body;
-    if (!name) {
+    const { companyName } = req.body;
+    if (!companyName) {
       return res.status(400).json({
         message: "Company name is required",
         success: false,
       });
     }
 
-    let company = await Company.findOne({ name });
+    let company = await Company.findOne({ companyName });
     if (company) {
       return res.status(400).json({
         message: "Company Name already exists",
@@ -20,12 +20,13 @@ export const registerComapny = async (req, res) => {
     }
 
     company = await Company.create({
-      name: name,
+      name: companyName,
       userId: req.id,
     });
 
     return res.status(201).json({
       message: "Company registered successfully",
+      company,
       success: true,
     });
   } catch (error) {

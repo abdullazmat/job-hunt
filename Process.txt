@@ -156,3 +156,7 @@ Commit 25 : Adding Private Routes to Website
 Commit 26 : Recruiter Login Route Setup
 1. Set up condiition in Navbar so that View profile option is disable for recruiter logins.
 2. Similarly, added a condition on homepage using useEffect that if role is recruiter, show company dashboard instead of users  
+
+Commit 27 : Admin Comapny Dashboards Setup
+1. Complete homepage UI dashboard of Companies listed by Admin
+2. Create a add company page to add company to DB
