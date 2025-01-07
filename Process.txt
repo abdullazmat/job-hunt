@@ -168,3 +168,9 @@ Commit 28 : Add Comapny Info Setup
 Commit 29 : Admin Companies Rendered on Table 
 1. Used a hook useGetAllAdmiinCompanies to get all companies.
 2. Then use this hook on comapny page to show all comapnies on table
+
+Commit 30 : Filter Search Company Functionality
+1. First we have to get the input by onChange handler. Then declare a useState for that input.
+2. Declare a searchInput text in slice.
+3. Then use a useEffect for the input text every time it changes and dispatch it to slice.
+4. Then use that input to the text we wanna compare to by using filtering

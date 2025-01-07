@@ -5,6 +5,7 @@ import useGetAdminCompanies from "../../Hooks/useGetComapniesByAdmin.js";
 import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
+import { setSearchCompanyByText } from "../../Redux/companySlice.js";
 
 function Companies() {
   const navigate = useNavigate();
@@ -15,7 +16,10 @@ function Companies() {
   const [input, setInput] = useState("");
   console.log("Admin Companies UseState:", adminCompanies);
 
-  useEffect(() => {}, [input]);
+  // Use Effect to filter companies by text
+  useEffect(() => {
+    dispatch(setSearchCompanyByText(input));
+  }, [input]);
 
   return (
     <div className="container">

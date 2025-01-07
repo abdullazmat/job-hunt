@@ -3,11 +3,30 @@ import { faPen, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
 
 function CompaniesRegisteredTable({ companies }) {
   const navigate = useNavigate();
 
-  console.log("Companies Array Rendered on Table:", companies);
+  const [filterCompanies, setFilterCompanies] = useState(companies);
+  const { searchCompanyText } = useSelector((state) => state.company);
+
+  useEffect(() => {
+    const filteredCompanies =
+      companies.length >= 0 &&
+      companies.filter((company) => {
+        if (!searchCompanyText) {
+          return true;
+        }
+        return company?.name
+          ?.toLowerCase()
+          .includes(searchCompanyText.toLowerCase());
+      });
+    setFilterCompanies(filteredCompanies);
+  }, [companies, searchCompanyText]);
+
+  console.log("Companies Array Rendered on Table:", filterCompanies);
 
   return (
     <div className="container ">
@@ -21,7 +40,7 @@ function CompaniesRegisteredTable({ companies }) {
           </tr>
         </thead>
         <tbody>
-          {companies.map((company, index) => (
+          {filterCompanies.map((company, index) => (
             <tr key={index}>
               <td className="text-center">
                 <img
