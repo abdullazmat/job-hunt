@@ -2,14 +2,17 @@ import React from "react";
 import { faPen, faPhone } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 
-function AppliedJobsTable() {
-  const [edit, setEdit] = useState(false);
+function CompaniesRegisteredTable({ companies }) {
+  const navigate = useNavigate();
+
+  console.log("Companies Array Rendered on Table:", companies);
 
   return (
     <div className="container ">
       <table className="table mt-4">
-        <thead>
+        <thead className="text-center">
           <tr>
             <th scope="col">Logo</th>
             <th scope="col">Name</th>
@@ -18,21 +21,25 @@ function AppliedJobsTable() {
           </tr>
         </thead>
         <tbody>
-          {[1, 2, 3, 4].map((item, index) => (
+          {companies.map((company, index) => (
             <tr key={index}>
-              <td>
+              <td className="text-center">
                 <img
-                  src="https://download.logo.wine/logo/Google/Google-Logo.wine.png"
+                  src={
+                    company?.logo ? company?.logo : "/DefaultCompanyLogo.png"
+                  }
                   width={50}
                 ></img>
               </td>
-              <td>Google</td>
-              <td>01-06-2025</td>
-              <td className=" mt-1 ">
+              <td className="text-center">{company?.name}</td>
+              <td className="text-center">
+                {company?.createdAt.split("T")[0]}
+              </td>
+              <td className=" mt-1  text-center">
                 <FontAwesomeIcon
                   icon={faPen}
-                  className="p-3 edit-profile-icon"
-                  onClick={() => setEdit(!edit)}
+                  className=" edit-company-icon"
+                  onClick={() => navigate(`/admin/companies/${company._id}`)}
                 />
               </td>
             </tr>
@@ -43,4 +50,4 @@ function AppliedJobsTable() {
   );
 }
 
-export default AppliedJobsTable;
+export default CompaniesRegisteredTable;

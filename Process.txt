@@ -164,3 +164,7 @@ Commit 27 : Admin Comapny Dashboards Setup
 Commit 28 : Add Comapny Info Setup
 1. Used a useEffect to get excitsing company info.
 2. Then use axios.put to update the data via formDataObject
+
+Commit 29 : Admin Companies Rendered on Table 
+1. Used a hook useGetAllAdmiinCompanies to get all companies.
+2. Then use this hook on comapny page to show all comapnies on table

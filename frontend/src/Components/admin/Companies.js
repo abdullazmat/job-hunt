@@ -1,9 +1,21 @@
-import React from "react";
-import CompaniesTable from "./CompaniesTable";
+import React, { useState } from "react";
+import CompaniesRegisteredTable from "./CompaniesTable";
 import { useNavigate } from "react-router-dom";
+import useGetAdminCompanies from "../../Hooks/useGetComapniesByAdmin.js";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
 
 function Companies() {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
+  useGetAdminCompanies();
+
+  const { adminCompanies } = useSelector((state) => state.company);
+  const [input, setInput] = useState("");
+  console.log("Admin Companies UseState:", adminCompanies);
+
+  useEffect(() => {}, [input]);
 
   return (
     <div className="container">
@@ -14,6 +26,7 @@ function Companies() {
           style={{ color: "#6b7280" }}
           placeholder="Filter Companies"
           aria-label="Search"
+          onChange={(e) => setInput(e.target.value)}
         />
         <button
           className="btn btn-dark"
@@ -22,7 +35,7 @@ function Companies() {
           Add Company
         </button>
       </div>
-      <CompaniesTable />
+      <CompaniesRegisteredTable companies={adminCompanies} />
     </div>
   );
 }

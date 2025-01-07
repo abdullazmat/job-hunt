@@ -8,6 +8,7 @@ import axios from "axios";
 import { useDispatch, useSelector } from "react-redux";
 import { setCompanyData } from "../../Redux/companySlice.js";
 import useGetCompanyData from "../../Hooks/useGetCompanyData.js";
+import { useEffect } from "react";
 
 function CompanyDescription() {
   const { companyData } = useSelector((state) => state.company);
@@ -21,12 +22,24 @@ function CompanyDescription() {
   useGetCompanyData(params.id);
 
   const [formData, setFormData] = useState({
-    name: companyData?.name || "",
-    description: companyData?.description || "",
-    website: companyData?.website || "",
-    location: companyData?.location || "",
-    file: companyData?.logo || null,
+    name: "",
+    description: "",
+    website: "",
+    location: "",
+    file: null,
   });
+
+  useEffect(() => {
+    if (companyData) {
+      setFormData({
+        name: companyData?.name || "",
+        description: companyData?.description || "",
+        website: companyData?.website || "",
+        location: companyData?.location || "",
+        file: companyData?.logo || null,
+      });
+    }
+  }, [companyData]);
 
   const handleChange = (e) => {
     setFormData({
@@ -65,6 +78,9 @@ function CompanyDescription() {
         dispatch(setCompanyData(response.data.company));
         navigate("/admin/companies");
         setSuccess(true);
+        setTimeout(() => {
+          setSuccess(null);
+        }, 3000);
       }
     } catch (error) {
       setError(error.response?.data?.message || error.message);
@@ -206,7 +222,7 @@ function CompanyDescription() {
           </div>
         </div>
       )}
-      {success && user && (
+      {success && (
         <div
           className="toast-container position-fixed bottom-0 end-0 p-3"
           style={{ bottom: "50px", right: "10px" }}

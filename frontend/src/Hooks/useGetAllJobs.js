@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 import { JOB_API_END_POINT } from "../Utils/constant";
 import { useDispatch } from "react-redux";

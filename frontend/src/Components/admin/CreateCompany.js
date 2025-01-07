@@ -35,7 +35,7 @@ const CreateCompany = () => {
         setTimeout(() => {
           setSuccess(null);
           navigate(`/admin/companies/${companyId}`);
-        }, 2000);
+        }, 1000);
       }
     } catch (error) {
       console.error(error.response?.data || error.message);
