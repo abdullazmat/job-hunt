@@ -160,3 +160,7 @@ Commit 26 : Recruiter Login Route Setup
 Commit 27 : Admin Comapny Dashboards Setup
 1. Complete homepage UI dashboard of Companies listed by Admin
 2. Create a add company page to add company to DB
+
+Commit 28 : Add Comapny Info Setup
+1. Used a useEffect to get excitsing company info.
+2. Then use axios.put to update the data via formDataObject

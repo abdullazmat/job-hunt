@@ -41,15 +41,17 @@ function SignUp() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const formDataObject = new FormData(); //formdata object
-    formDataObject.append("fullname", formData.fullName);
-    formDataObject.append("email", formData.email);
-    formDataObject.append("phoneNumber", formData.phoneNumber);
-    formDataObject.append("password", formData.password);
-    formDataObject.append("role", formData.role);
-    if (formData.file) {
-      formDataObject.append("file", formData.file);
-    }
+    // const formDataObject = new FormData(); //formdata object
+    // formDataObject.append("fullname", formData.fullName);
+    // formDataObject.append("email", formData.email);
+    // formDataObject.append("phoneNumber", formData.phoneNumber);
+    // formDataObject.append("password", formData.password);
+    // formDataObject.append("role", formData.role);
+    // if (formData.file) {
+    //   formDataObject.append("file", formData.file);
+    // }
+    // console.log(formDataObject);
+    console.log(formData);
 
     try {
       dispatch(setLoading(true));

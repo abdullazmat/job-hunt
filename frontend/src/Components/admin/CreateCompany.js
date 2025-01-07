@@ -3,7 +3,7 @@ import axios from "axios";
 import { useDispatch } from "react-redux";
 import { COMPANY_API_END_POINT } from "../../Utils/constant";
 import { useNavigate } from "react-router-dom";
-import { setCompany } from "../../Redux/companySlice.js";
+import { setCompanyData } from "../../Redux/companySlice.js";
 
 const CreateCompany = () => {
   const dispatch = useDispatch();
@@ -27,7 +27,7 @@ const CreateCompany = () => {
 
       if (response?.data?.success) {
         console.log("Company created successfully");
-        dispatch(setCompany(response?.data?.company));
+        dispatch(setCompanyData(response?.data?.company));
         console.log(response?.data);
         const companyId = response?.data?.company?._id;
 
