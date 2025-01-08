@@ -12,6 +12,9 @@ import PrivateRoute from "./Components/user/PrivateRoute.js";
 import Companies from "./Components/admin/Companies.js";
 import CreateCompany from "./Components/admin/CreateCompany.js";
 import CompanyDescription from "./Components/admin/CompanyDescription.js";
+import AdminJobs from "./Components/admin/AdminJobs.js";
+import JobUpdate from "./Components/admin/JobUpdate.js";
+import JobCreate from "./Components/admin/CreateJob.js";
 
 function App() {
   return (
@@ -34,7 +37,6 @@ function App() {
               ></Route>
               <Route path="/profile" element={<Profile />}></Route>
               <Route path="/admin/companies" element={<Companies />}></Route>
-              <Route path="/admin/jobs" element={<Browse />}></Route>
               <Route
                 path="/admin/companies/create"
                 element={<CreateCompany />}
@@ -43,7 +45,13 @@ function App() {
                 path="/admin/companies/:id"
                 element={<CompanyDescription />}
               ></Route>
+              <Route path="/admin/jobs" element={<AdminJobs />}></Route>
             </Route>
+            <Route
+              path="/admin/jobs/update/:id"
+              element={<JobUpdate />}
+            ></Route>
+            <Route path="/admin/jobs/create" element={<JobCreate />}></Route>
           </Routes>
         </div>
         <Footer />

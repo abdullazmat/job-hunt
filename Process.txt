@@ -174,3 +174,6 @@ Commit 30 : Filter Search Company Functionality
 2. Declare a searchInput text in slice.
 3. Then use a useEffect for the input text every time it changes and dispatch it to slice.
 4. Then use that input to the text we wanna compare to by using filtering
+
+Commit 31 : Add/Edit a Job Functionality
+1. Admins can now edit or add new jobs just like adding companies.

@@ -55,7 +55,7 @@ function Header() {
               <ul className="nav col-12 col-lg-auto ms-lg-auto me-0 me-lg-5 mb-2 justify-content-center mb-md-0">
                 <li>
                   <Link
-                    to="/admin-companies"
+                    to="/admin/companies"
                     className="nav-link px-2  text-black nav-links"
                     style={{ fontWeight: "bold" }}
                   >
@@ -64,7 +64,7 @@ function Header() {
                 </li>
                 <li>
                   <Link
-                    to="/admin-jobs"
+                    to="/admin/jobs"
                     className="nav-link px-2 text-black  nav-links"
                     style={{ fontWeight: "bold" }}
                   >

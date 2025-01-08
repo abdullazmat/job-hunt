@@ -15,21 +15,22 @@ function JobDescription() {
   const naivgate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
-  const jobId = params.id;
+  const jobId = params?.id;
   console.log("Job ID:", jobId);
 
   const { user } = useSelector((state) => state.auth);
   console.log("UserId:", user?._id);
   const { jobDesc } = useSelector((state) => state.job);
-  console.log(
-    "Applicant Id:",
-    jobDesc.applications.map((app) => app.applicant._id)
-  );
 
   const isApplied = jobDesc?.applications
     .map((app) => app?.applicant?._id)
     .includes(user?._id);
   console.log("Is Applied:", isApplied);
+
+  console.log(
+    "Applicant Id:",
+    jobDesc?.applications.map((app) => app.applicant._id)
+  );
 
   const applyJobHandler = async () => {
     try {
@@ -38,6 +39,9 @@ function JobDescription() {
         {},
         {
           withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
         }
       );
       if (response.data.success) {

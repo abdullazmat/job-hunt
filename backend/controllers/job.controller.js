@@ -12,9 +12,10 @@ export const postJob = async (req, res) => {
       salary,
       experienceLevel,
       jobType,
-      position,
       requirements,
+      position,
     } = req.body;
+
     if (
       !title ||
       !description ||
@@ -34,10 +35,10 @@ export const postJob = async (req, res) => {
     const job = await Job.create({
       title,
       description,
-      requirements: requirements.split(","),
+      requirements: requirements ? requirements.split(",") : [],
       company: companyId,
       location,
-      salary: Number(salary),
+      salary: salary,
       experienceLevel: experienceLevel,
       jobType,
       position,
@@ -136,6 +137,81 @@ export const getJobsByAdmin = async (req, res) => {
   } catch (error) {
     return res.status(500).json({
       message: `Error in getting jobs: ${error.message}`,
+      success: false,
+    });
+  }
+};
+
+// Controller for updating job by Admin
+export const updateJob = async (req, res) => {
+  try {
+    const jobId = req.params.id;
+    const userId = req.id;
+    const {
+      title,
+      description,
+      companyId,
+      location,
+      salary,
+      experienceLevel,
+      jobType,
+      requirements,
+      position,
+    } = req.body;
+
+    if (
+      !title ||
+      !description ||
+      !companyId ||
+      !location ||
+      !salary ||
+      !experienceLevel ||
+      !jobType ||
+      !position ||
+      !requirements
+    ) {
+      return res.status(400).json({
+        message: "Please fill all fields",
+        success: false,
+      });
+    }
+
+    const job = await Job.findById(jobId);
+
+    if (!job) {
+      return res.status(404).json({
+        message: "Job not found",
+        success: false,
+      });
+    }
+
+    if (job.createdBy.toString() !== userId) {
+      return res.status(401).json({
+        message: "You are not authorized to update this job",
+        success: false,
+      });
+    }
+
+    job.title = title;
+    job.description = description;
+    job.requirements = requirements ? requirements.split(",") : [];
+    job.company = companyId;
+    job.location = location;
+    job.salary = salary;
+    job.experienceLevel = experienceLevel;
+    job.jobType = jobType;
+    job.position = position;
+
+    await job.save();
+
+    return res.status(200).json({
+      message: "Job updated successfully",
+      success: true,
+      job,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: `Error in updating job: ${error.message}`,
       success: false,
     });
   }
