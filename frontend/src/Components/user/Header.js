@@ -214,7 +214,7 @@ function Header() {
       {success && (
         <div
           className="toast-container position-fixed bottom-0 end-0 p-3"
-          // style={{ bottom: "50px", right: "10px" }} // Adjust these values
+          style={{ bottom: "50px", right: "10px" }} // Adjust these values
         >
           <div
             id="liveToast"

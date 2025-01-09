@@ -4,7 +4,7 @@ import { JOB_API_END_POINT } from "../Utils/constant";
 import { useDispatch } from "react-redux";
 import { setAllJobs } from "../Redux/jobSlice";
 
-const useGetAllJobs = () => {
+const useGetAllJobs = (dependencies = []) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const useGetAllJobs = () => {
       }
     };
     getAllJobs();
-  }, []);
+  }, dependencies);
 };
 
 export default useGetAllJobs;

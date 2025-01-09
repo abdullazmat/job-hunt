@@ -177,3 +177,6 @@ Commit 30 : Filter Search Company Functionality
 
 Commit 31 : Add/Edit a Job Functionality
 1. Admins can now edit or add new jobs just like adding companies.
+
+Commit 32 : Search Job Functionality
+1. Admins can now search for jobs using keyword of companies or job titles.

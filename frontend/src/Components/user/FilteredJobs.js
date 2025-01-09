@@ -1,8 +1,15 @@
 import FilterJobCards from "./FilterJobCards";
 import { useSelector } from "react-redux";
+import useGetAllJobs from "../../Hooks/useGetAllJobs";
 
 function FilteredJobs() {
-  const { allJobs } = useSelector((store) => store.job);
+  const { allJobs, jobDesc } = useSelector((state) => state.job);
+
+  const { user } = useSelector((state) => state.auth);
+
+  useGetAllJobs([jobDesc]);
+
+  console.log(allJobs);
 
   return (
     <div className="container-fluid p-0">
@@ -243,7 +250,11 @@ function FilteredJobs() {
               <div className="row g-3">
                 {allJobs.map((job, index) => (
                   <div key={index} className="col-lg-4 col-md-6 col-sm-12 ">
-                    <FilterJobCards id={job._id} job={job} />
+                    <FilterJobCards
+                      id={job._id}
+                      job={job}
+                      userApplied={job?.applications.includes(user?._id)}
+                    />
                   </div>
                 ))}
               </div>

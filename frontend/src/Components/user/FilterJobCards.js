@@ -1,10 +1,83 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBookmark } from "@fortawesome/free-regular-svg-icons";
 import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import axios from "axios";
+import {
+  APPLICATION_API_END_POINT,
+  JOB_API_END_POINT,
+} from "../../Utils/constant";
+import { useDispatch } from "react-redux";
+import { setJobDesc } from "../../Redux/jobSlice";
 
 const FilterJobCards = ({ id, job }) => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { user } = useSelector((state) => state.auth);
+
+  console.log(job);
+
+  const isApplied = job?.applications
+    .map((app) => app.applicant)
+    .includes(user?._id);
+  console.log("Is Applied:", isApplied);
+
+  console.log(
+    "Applicant Id:",
+    job?.applications.map((app) => app)
+  );
+
+  useEffect(() => {
+    if (!user) {
+      navigate("/login");
+      return;
+    }
+    try {
+      const getjob = async () => {
+        const response = await axios.get(`${JOB_API_END_POINT}/get/${id}`, {
+          withCredentials: true,
+        });
+
+        if (response.data.success) {
+          dispatch(setJobDesc(response.data.job));
+        }
+      };
+      getjob();
+    } catch (error) {
+      console.log(error);
+      if (error.response?.status === 401) {
+        navigate("/login");
+      }
+    }
+  }, [id, dispatch, user?._id]);
+
+  const applyJobHandler = async () => {
+    try {
+      const response = await axios.post(
+        `${APPLICATION_API_END_POINT}/apply/${id}`,
+        {},
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "application/json",
+          },
+        }
+      );
+      if (response.data.success) {
+        const updatedJob = await axios.get(`${JOB_API_END_POINT}/get/${id}`, {
+          withCredentials: true,
+        });
+        if (updatedJob.data.success) {
+          dispatch(setJobDesc(updatedJob.data.job));
+        }
+        console.log("Job Aplly Function:", response.data);
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   const daysAgoFunction = (createdAtTime) => {
     const currentTime = new Date();
@@ -24,8 +97,7 @@ const FilterJobCards = ({ id, job }) => {
           <i className="fw-semibold">
             {daysAgoFunction(job.createdAt) === 0
               ? "Today"
-              : daysAgoFunction(job.createdAt)}{" "}
-            days ago
+              : `${daysAgoFunction(job.createdAt)} days ago`}
           </i>
         </p>
         <FontAwesomeIcon
@@ -34,14 +106,16 @@ const FilterJobCards = ({ id, job }) => {
           style={{ color: "black" }}
         />
       </div>
-      <div className="d-flex align-items-center mt-3">
+      <div className="d-flex align-items-center mt-3 ms-3">
         <div>
           <img
-            src="https://static.vecteezy.com/system/resources/previews/008/214/517/non_2x/abstract-geometric-logo-or-infinity-line-logo-for-your-company-free-vector.jpg"
-            alt={job?.company?.name}
-            className="img-fluid"
-            style={{ width: "50px", height: "50px" }}
-          />
+            src={
+              job?.company?.logo
+                ? job?.company?.logo
+                : "/DefaultCompanyLogo.png"
+            }
+            width={30}
+          ></img>
         </div>
         <div>
           <p className="ms-2 p-0 m-0">{job?.company?.name}</p>
@@ -49,7 +123,7 @@ const FilterJobCards = ({ id, job }) => {
             className=" ms-2 p-0 m-0 fw-semibold"
             style={{ fontSize: "0.7rem" }}
           >
-            Pakistan
+            {job?.location}
           </p>
         </div>
       </div>
@@ -85,7 +159,7 @@ const FilterJobCards = ({ id, job }) => {
               fontSize: ".7rem",
             }}
           >
-            {job?.salary}
+            {job?.salary} PKR
           </p>
         </div>
         <div className="d-flex mt-3 ">
@@ -99,10 +173,12 @@ const FilterJobCards = ({ id, job }) => {
             Details
           </button>
           <button
+            disabled={isApplied}
             className="btn ms-5 filter-job-apply-btn px-3"
             style={{ backgroundColor: "#6A38C2", color: "white" }}
+            onClick={isApplied ? null : applyJobHandler}
           >
-            Apply
+            {isApplied ? "Applied" : "Apply"}
           </button>
         </div>
       </div>

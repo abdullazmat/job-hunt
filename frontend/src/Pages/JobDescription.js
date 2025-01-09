@@ -109,7 +109,7 @@ function JobDescription() {
               fontSize: ".7rem",
             }}
           >
-            Positions
+            {jobDesc?.position} Positions
           </p>
           <p
             className="  fw-bold mb-2 px-2  px-xl-3"
@@ -119,7 +119,7 @@ function JobDescription() {
               fontSize: ".7rem",
             }}
           >
-            PartTime
+            {jobDesc?.jobType}
           </p>
           <p
             className=" fw-bold mb-2 px-2 px-xl-3"
@@ -129,7 +129,7 @@ function JobDescription() {
               fontSize: ".7rem",
             }}
           >
-            12LPA
+            {jobDesc?.salary} PKR
           </p>
         </div>
       </div>
@@ -152,13 +152,10 @@ function JobDescription() {
           <p className="ms-2">{`${
             jobDesc?.experienceLevel === 1
               ? "1 Year"
-              : jobDesc?.experienceLevel + "Years"
+              : jobDesc?.experienceLevel + " Years"
           }`}</p>
         </div>
-        <div className="d-flex mt-2">
-          <p className="fw-bold">Salary: </p>
-          <p className="ms-2">{jobDesc?.salary}</p>
-        </div>
+
         <div className="d-flex mt-2">
           <p className="fw-bold">Total Applicants: </p>
           <p className="ms-2">{jobDesc?.applications?.length}</p>

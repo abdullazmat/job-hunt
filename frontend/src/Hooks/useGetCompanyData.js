@@ -19,6 +19,7 @@ const useGetCompanyData = (CompanyId) => {
         if (res.data.success) {
           console.log("Company API Response:", res.data.company);
           dispatch(setCompanyData(res.data.company));
+          return res.data.company;
         }
       } catch (err) {
         console.log(err);

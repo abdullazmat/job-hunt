@@ -166,7 +166,7 @@ function LogIn() {
         {success && user && (
           <div
             className="toast-container position-fixed bottom-0 end-0 p-3"
-            // style={{ bottom: "50px", right: "10px" }} // Adjust these values
+            style={{ bottom: "50px", right: "10px" }} // Adjust these values
           >
             <div
               id="liveToast"
@@ -176,7 +176,7 @@ function LogIn() {
               aria-atomic="true"
             >
               <div className="toast-body text-success fw-bold">
-                {user.message}
+                Logged In Successfully
               </div>
             </div>
           </div>

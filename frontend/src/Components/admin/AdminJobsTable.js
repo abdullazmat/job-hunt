@@ -10,7 +10,7 @@ function AdminJobsTable({ jobs }) {
   const navigate = useNavigate();
 
   const [filterJobs, setFilterJobs] = useState(jobs);
-  const { searchJobText } = useSelector((state) => state.company);
+  const { searchJobText } = useSelector((state) => state.job);
 
   useEffect(() => {
     const filteredJobs =
@@ -19,7 +19,12 @@ function AdminJobsTable({ jobs }) {
         if (!searchJobText) {
           return true;
         }
-        return job?.title?.toLowerCase().includes(searchJobText.toLowerCase());
+        return (
+          job?.title?.toLowerCase().includes(searchJobText.toLowerCase()) ||
+          job?.company?.name
+            ?.toLowerCase()
+            .includes(searchJobText.toLowerCase())
+        );
       });
     setFilterJobs(filteredJobs);
   }, [jobs, searchJobText]);
@@ -31,7 +36,7 @@ function AdminJobsTable({ jobs }) {
       <table className="table mt-4">
         <thead className="text-center">
           <tr>
-            <th scope="col">Company Name</th>
+            <th scope="col">Company</th>
             <th scope="col">Applicants</th>
             <th scope="col">Role</th>
             <th scope="col">Date</th>
@@ -42,7 +47,7 @@ function AdminJobsTable({ jobs }) {
           {filterJobs?.length > 0 ? (
             filterJobs.map((job, index) => (
               <tr key={index}>
-                <td className="text-center">{job?.title}</td>
+                <td className="text-center">{job?.company?.name}</td>
                 <td className="text-center">{job?.applications.length}</td>
                 <td className="text-center">{job?.jobType}</td>
                 <td className="text-center">{job?.createdAt.split("T")[0]}</td>
