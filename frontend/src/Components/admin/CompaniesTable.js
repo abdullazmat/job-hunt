@@ -1,16 +1,23 @@
 import React from "react";
-import { faPen, faPhone } from "@fortawesome/free-solid-svg-icons";
+import { faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
+import axios from "axios";
+import { COMPANY_API_END_POINT } from "../../Utils/constant";
+import { useDispatch } from "react-redux";
+import { setAdminCompanies } from "../../Redux/companySlice";
 
 function CompaniesRegisteredTable({ companies }) {
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const [filterCompanies, setFilterCompanies] = useState(companies);
   const { searchCompanyText } = useSelector((state) => state.company);
+  const [sucess, setSucess] = useState(false);
+  const [error, setError] = useState(false);
 
   useEffect(() => {
     const filteredCompanies =
@@ -26,7 +33,19 @@ function CompaniesRegisteredTable({ companies }) {
     setFilterCompanies(filteredCompanies);
   }, [companies, searchCompanyText]);
 
-  console.log("Companies Array Rendered on Table:", filterCompanies);
+  const deleteCompany = async (id) => {
+    try {
+      const res = await axios.delete(`${COMPANY_API_END_POINT}/delete/${id}`, {
+        withCredentials: true,
+      });
+      if (res?.data?.success) {
+        dispatch(setAdminCompanies(res?.data?.companies));
+      }
+    } catch (error) {
+      setError(error.message);
+      console.log(error);
+    }
+  };
 
   return (
     <div className="container ">
@@ -59,6 +78,12 @@ function CompaniesRegisteredTable({ companies }) {
                   icon={faPen}
                   className=" edit-company-icon"
                   onClick={() => navigate(`/admin/companies/${company._id}`)}
+                />
+                <FontAwesomeIcon
+                  icon={faTrashCan}
+                  className="  ms-3"
+                  style={{ color: "red", cursor: "pointer" }}
+                  onClick={() => deleteCompany(company._id)}
                 />
               </td>
             </tr>

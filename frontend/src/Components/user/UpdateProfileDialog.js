@@ -46,6 +46,7 @@ function UpdateProfileDialog({ edit, setEdit }) {
     if (formData.file) {
       formDataObject.append("file", formData.file);
     }
+    console.log("formDataObject updated", formDataObject);
     try {
       setLoading(true);
       const res = await axios.put(
@@ -60,7 +61,6 @@ function UpdateProfileDialog({ edit, setEdit }) {
       if (res.data.success) {
         dispatch(setUser(res.data.user));
         console.log("User Update Dispatch:", res.data.user);
-
         setSuccess(true);
         setTimeout(() => {
           setSuccess(false);
@@ -75,7 +75,6 @@ function UpdateProfileDialog({ edit, setEdit }) {
     } finally {
       setLoading(false);
     }
-    setEdit(false);
     console.log("formData", formData);
   };
 
@@ -181,6 +180,16 @@ function UpdateProfileDialog({ edit, setEdit }) {
                   onChange={handleFileChange}
                 />
               </div>
+              {success && (
+                <div className="mt-4">
+                  <p className="text-success fw-bold">Successfully Updated</p>
+                </div>
+              )}
+              {error && (
+                <div className="mt-4">
+                  <p className="text-danger fw-bold">{error}</p>
+                </div>
+              )}
             </div>
             <div className="modal-footer">
               <button
@@ -197,10 +206,7 @@ function UpdateProfileDialog({ edit, setEdit }) {
           </div>
         </div>
         {error && (
-          <div
-            className="toast-container position-fixed"
-            style={{ bottom: "50px", right: "10px" }} // Adjust these values
-          >
+          <div className="toast-container position-fixed">
             <div
               id="liveToast"
               className="toast show"
@@ -208,25 +214,7 @@ function UpdateProfileDialog({ edit, setEdit }) {
               aria-live="assertive"
               aria-atomic="true"
             >
-              <div className="toast-body text-danger">{error}</div>
-            </div>
-          </div>
-        )}
-        {success && user && (
-          <div
-            className="toast-container position-fixed bottom-0 end-0 p-3"
-            style={{ bottom: "50px", right: "10px" }} // Adjust these values
-          >
-            <div
-              id="liveToast"
-              className="toast show"
-              role="alert"
-              aria-live="assertive"
-              aria-atomic="true"
-            >
-              <div className="toast-body text-success fw-bold">
-                Successfully Updated
-              </div>
+              <div className="toast-body text-danger">{error.message}</div>
             </div>
           </div>
         )}

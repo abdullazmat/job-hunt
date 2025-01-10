@@ -1,6 +1,7 @@
 import { Company } from "../models/company.model.js";
 import cloudinary from "../utils/cloudinary.js";
 import getDataUri from "../utils/datauri.js";
+import mongoose from "mongoose";
 
 // Company Registration controller
 export const registerComapny = async (req, res) => {
@@ -116,6 +117,42 @@ export const updateCompany = async (req, res) => {
       message: "Company information updated",
     });
   } catch (error) {
+    return res.status(500).json({
+      message: `Error: ${error.message}`,
+      success: false,
+    });
+  }
+};
+
+// Delete Company controller
+export const deleteCompany = async (req, res) => {
+  try {
+    // Find the company by ID
+    const company = await Company.findById(req.params.id);
+    console.log("company", company);
+
+    if (!company) {
+      return res.status(404).json({
+        message: "Company not found",
+        success: false,
+      });
+    }
+
+    const { userId } = company;
+
+    // Remove the company
+    await Company.deleteOne({ _id: req.params.id });
+
+    // Fetch updated list of companies for the user
+    const companies = await Company.find({ userId });
+
+    return res.status(200).json({
+      success: true,
+      message: "Company deleted successfully",
+      companies,
+    });
+  } catch (error) {
+    console.error("Error occurred while deleting company:", error);
     return res.status(500).json({
       message: `Error: ${error.message}`,
       success: false,

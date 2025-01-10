@@ -151,20 +151,8 @@ export const logout = async (req, res) => {
 export const updateProfile = async (req, res) => {
   try {
     const { fullName, email, phoneNumber, bio, skills } = req.body;
-    const file = req.file;
-    if (req.file) {
-      const fileUri = getDataUri(file);
-      const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
-      user.profile.resume = cloudResponse.secure_url; // save the cloudinary url
-      user.profile.resumeOriginalName = file.originalname; // Save the original file name
-    }
 
-    let skillsArray;
-    if (skills) {
-      skillsArray = skills.split(",");
-    }
-
-    // Check if user is verified
+    // Check if user is authenticated and retrieve user from DB
     const userId = req.id; // Middleware Authenticated user id
     let user = await User.findById(userId);
     if (!user) {
@@ -173,16 +161,37 @@ export const updateProfile = async (req, res) => {
         .json({ message: "User not found", success: false });
     }
 
-    // Updating the data
+    // File upload handling (if a file is provided)
+    if (req.file) {
+      const file = req.file;
+      const fileUri = getDataUri(file);
+      const cloudResponse = await cloudinary.uploader.upload(fileUri.content, {
+        resource_type: "auto", // Supports both images and other file types
+      });
+
+      // Update resume in user profile
+      user.profile.resume = cloudResponse.secure_url;
+      user.profile.resumeOriginalName = file.originalname;
+    }
+
+    // Handle skills if provided
+    let skillsArray;
+    if (skills) {
+      skillsArray = skills.split(",");
+    }
+
+    // Update user fields
     if (fullName) user.fullName = fullName;
     if (email) user.email = email;
     if (phoneNumber) user.phoneNumber = phoneNumber;
     if (bio) user.profile.bio = bio;
     if (skills) user.profile.skills = skillsArray;
 
+    // Save updated user to database
     await user.save();
 
-    user = {
+    // Create a clean response object
+    const responseUser = {
       _id: user._id,
       fullName: user.fullName,
       email: user.email,
@@ -193,7 +202,7 @@ export const updateProfile = async (req, res) => {
 
     return res.status(200).json({
       message: "Profile updated successfully",
-      user,
+      user: responseUser,
       success: true,
     });
   } catch (error) {

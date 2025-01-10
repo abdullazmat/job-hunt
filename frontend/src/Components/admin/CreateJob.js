@@ -83,6 +83,13 @@ function JobCreate() {
 
   return (
     <div className="container">
+      {adminCompanies.length === 0 && (
+        <div className="d-flex justify-content-center align-items-center mt-5">
+          <h3 className="text-danger">
+            You need to list a company to add a job
+          </h3>
+        </div>
+      )}
       <div className="p-sm-0 p-md-5 mt-5 d-flex align-items-center justify-content-between">
         <div className="d-flex align-items-center">
           <FontAwesomeIcon

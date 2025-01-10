@@ -7,8 +7,6 @@ export const applyJob = async (req, res) => {
     const userId = req.id;
     const jobId = req.params.id;
 
-    console.log(userId);
-    console.log(jobId);
     if (!jobId) {
       return res.status(400).json({
         message: "Job ID is required",
@@ -20,8 +18,6 @@ export const applyJob = async (req, res) => {
       job: jobId,
       applicant: userId,
     });
-
-    console.log("Existing Application:", excistingApplication); // Debug application check
 
     if (excistingApplication) {
       return res.status(400).json({
