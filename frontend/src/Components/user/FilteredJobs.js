@@ -1,6 +1,7 @@
 import FilterJobCards from "./FilterJobCards";
 import { useSelector } from "react-redux";
 import useGetAllJobs from "../../Hooks/useGetAllJobs";
+import useGetAppliedJobs from "../../Hooks/useGetAppliedJobs";
 
 function FilteredJobs() {
   const { allJobs, jobDesc } = useSelector((state) => state.job);
@@ -8,6 +9,7 @@ function FilteredJobs() {
   const { user } = useSelector((state) => state.auth);
 
   useGetAllJobs([jobDesc]);
+  useGetAppliedJobs([allJobs]);
 
   console.log(allJobs);
 

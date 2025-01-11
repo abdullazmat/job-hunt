@@ -10,10 +10,12 @@ import { useDispatch } from "react-redux";
 import { setJobApplications } from "../../Redux/applicationsSlice";
 import { useSelector } from "react-redux";
 import JobApplicantsTable from "./JobApplicantsTable";
+import { useState } from "react";
 
 function JobApplicants() {
   const params = useParams();
   const dispatch = useDispatch();
+  const [loading, setLoading] = useState(true);
 
   const { jobApplications } = useSelector((state) => state.applications);
 
@@ -30,6 +32,8 @@ function JobApplicants() {
         }
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     };
     getJobApplications(params.id);
@@ -43,7 +47,15 @@ function JobApplicants() {
           <span className="text-danger">{jobApplications.length}</span>)
         </h2>
       </div>
-      <JobApplicantsTable jobApplications={jobApplications} />
+      {loading ? (
+        <div className="d-flex justify-content-center mt-5">
+          <div className="spinner-border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      ) : (
+        <JobApplicantsTable jobApplications={jobApplications} />
+      )}
     </div>
   );
 }

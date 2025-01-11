@@ -5,9 +5,11 @@ import LatestJobs from "../Components/user/LatestJobs";
 import useGetAllJobs from "../Hooks/useGetAllJobs";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import useGetAppliedJobs from "../Hooks/useGetAppliedJobs";
 
 function Home() {
   useGetAllJobs();
+  useGetAppliedJobs();
   const { user } = useSelector((state) => state.auth);
   const navigate = useNavigate();
 

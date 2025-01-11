@@ -1,6 +1,6 @@
 import React from "react";
 
-function AppliedJobsTable() {
+function AppliedJobsTable({ appliedJobs }) {
   return (
     <div className="container mt-5">
       <h5 className="fw-bold">Applied Jobs</h5>
@@ -14,14 +14,33 @@ function AppliedJobsTable() {
           </tr>
         </thead>
         <tbody>
-          {[1, 2, 3, 4].map((item, index) => (
-            <tr key={index}>
-              <td>12/12/2024</td>
-              <td>Frontend Developer</td>
-              <td>Google</td>
-              <td className="badge text-bg-danger mt-1 ">Rejected</td>
+          {appliedJobs.length > 0 ? (
+            appliedJobs.map((job, index) => (
+              <tr key={index}>
+                <td>{job?.createdAt.split("T")[0]}</td>
+                <td>{job?.job?.title}</td>
+                <td>{job?.job?.company?.name}</td>
+                <td
+                  className={`badge mt-1 ${
+                    job?.status === "accepted"
+                      ? "text-bg-success"
+                      : job?.status === "rejected"
+                      ? "text-bg-danger"
+                      : "text-bg-dark"
+                  }`}
+                >
+                  {job?.status.charAt(0).toUpperCase()}
+                  {job?.status.slice(1)}
+                </td>
+              </tr>
+            ))
+          ) : (
+            <tr>
+              <td colSpan="4" className="text-center">
+                No Applied Jobs
+              </td>
             </tr>
-          ))}
+          )}
         </tbody>
       </table>
     </div>

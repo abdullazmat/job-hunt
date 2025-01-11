@@ -9,6 +9,7 @@ import UpdateProfileDialog from "./UpdateProfileDialog";
 const Profile = () => {
   const [edit, setEdit] = useState(false);
   const { user } = useSelector((state) => state.auth);
+  const { appliedJobs } = useSelector((state) => state.auth);
   console.log("Profile", user);
 
   return (
@@ -83,7 +84,7 @@ const Profile = () => {
           </a>
         </div>
       </div>
-      <AppliedJobsTable />
+      <AppliedJobsTable appliedJobs={appliedJobs} />
       <UpdateProfileDialog edit={edit} setEdit={setEdit} />
     </div>
   );
