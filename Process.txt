@@ -195,3 +195,6 @@ Commit 36 : Update/Reject Application Status
 
 Commit 37 : Update User Applied Jobs Table
 1. User Applied jobs status gets updated when admin approves  or reject his application.
+
+Commit 38 : Search Jobs on Browse Page
+1. Users can now search jobs on homepage or click on category carousels to see jobs on Browse page

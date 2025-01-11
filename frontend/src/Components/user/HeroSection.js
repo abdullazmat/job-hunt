@@ -1,6 +1,19 @@
 import React from "react";
+import { useState } from "react";
+import { useDispatch } from "react-redux";
+import { setSearchQuery } from "../../Redux/jobSlice";
+import { useNavigate } from "react-router-dom";
 
 function HeroSection() {
+  const [query, setQuery] = useState("");
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const searchJobHandler = () => {
+    dispatch(setSearchQuery(query));
+    navigate("/browse");
+  };
+
   return (
     <div className="container">
       <div className="d-grid gap-2  mx-auto mt-5" style={{ width: "200px" }}>
@@ -34,8 +47,9 @@ function HeroSection() {
           style={{ color: "#6b7280" }}
           placeholder="Find your dream jobs"
           aria-label="Search"
+          onChange={(e) => setQuery(e.target.value)}
         />
-        <button className="p-0 m-0 border-0 ">
+        <button className="p-0 m-0 border-0 " onClick={searchJobHandler}>
           <span className="input-group-text search-btn-hero">
             <a className="searchicon">
               <i className="fas fa-search"></i>
