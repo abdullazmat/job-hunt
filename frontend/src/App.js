@@ -12,6 +12,7 @@ import PrivateRoute from "./Components/user/PrivateRoute.js";
 import Companies from "./Components/admin/Companies.js";
 import CreateCompany from "./Components/admin/CreateCompany.js";
 import CompanyDescription from "./Components/admin/CompanyDescription.js";
+import ViewCompany from "./Components/admin/ViewCompany.js";
 import AdminJobs from "./Components/admin/AdminJobs.js";
 import JobUpdate from "./Components/admin/JobUpdate.js";
 import JobCreate from "./Components/admin/CreateJob.js";
@@ -43,8 +44,12 @@ function App() {
                 element={<CreateCompany />}
               ></Route>
               <Route
-                path="/admin/companies/:id"
+                path="/admin/edit/company/:id"
                 element={<CompanyDescription />}
+              ></Route>
+              <Route
+                path="/admin/company/:id"
+                element={<ViewCompany />}
               ></Route>
               <Route path="/admin/jobs" element={<AdminJobs />}></Route>
             </Route>

@@ -1,6 +1,7 @@
 import React from "react";
 import { faPen, faTrashCan } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye } from "@fortawesome/free-regular-svg-icons";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
@@ -151,13 +152,21 @@ function CompaniesRegisteredTable({ companies }) {
                     icon={faPen}
                     className=" edit-company-icon"
                     style={{ cursor: "pointer" }}
-                    onClick={() => navigate(`/admin/companies/${company._id}`)}
+                    onClick={() =>
+                      navigate(`/admin/edit/company/${company._id}`)
+                    }
                   />
                   <FontAwesomeIcon
                     icon={faTrashCan}
                     className="  ms-3"
                     style={{ color: "red", cursor: "pointer" }}
                     onClick={() => deleteCompany(company._id)}
+                  />
+                  <FontAwesomeIcon
+                    icon={faEye}
+                    className="  ms-3"
+                    style={{ color: "green", cursor: "pointer" }}
+                    onClick={() => navigate(`/admin/company/${company._id}`)}
                   />
                 </td>
               </tr>

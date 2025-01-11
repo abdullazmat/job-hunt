@@ -1,7 +1,7 @@
 import { Company } from "../models/company.model.js";
 import cloudinary from "../utils/cloudinary.js";
 import getDataUri from "../utils/datauri.js";
-import mongoose from "mongoose";
+import { Job } from "../models/job.model.js";
 
 // Company Registration controller
 export const registerComapny = async (req, res) => {

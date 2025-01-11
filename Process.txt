@@ -201,3 +201,7 @@ Commit 38 : Search Jobs on Browse Page
 
 Commit 39 : Search Jobs on Filter Page
 1. Search Jobs on filter page functioanlity completed
+
+Commit 40 : View Company Page UI
+1. Now admin can view info about the companies they listed and how many jobs are posted by it.
+
