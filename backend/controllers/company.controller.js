@@ -129,7 +129,6 @@ export const deleteCompany = async (req, res) => {
   try {
     // Find the company by ID
     const company = await Company.findById(req.params.id);
-    console.log("company", company);
 
     if (!company) {
       return res.status(404).json({
@@ -145,12 +144,19 @@ export const deleteCompany = async (req, res) => {
 
     // Fetch updated list of companies for the user
     const companies = await Company.find({ userId });
-
-    return res.status(200).json({
-      success: true,
-      message: "Company deleted successfully",
-      companies,
-    });
+    if (companies.length === 0) {
+      return res.status(200).json({
+        message: "Deleted. No more companies registered",
+        success: true,
+      });
+    }
+    if (companies.length > 0) {
+      return res.status(200).json({
+        success: true,
+        message: "Company deleted successfully",
+        companies,
+      });
+    }
   } catch (error) {
     console.error("Error occurred while deleting company:", error);
     return res.status(500).json({

@@ -4,7 +4,7 @@ import { COMPANY_API_END_POINT } from "../Utils/constant";
 import { useDispatch } from "react-redux";
 import { setAdminCompanies } from "../Redux/companySlice";
 
-const useGetAdminCompanies = () => {
+const useGetAdminCompanies = (dependencies = []) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -22,7 +22,7 @@ const useGetAdminCompanies = () => {
       }
     };
     getAllComapnies();
-  }, []);
+  }, dependencies);
 };
 
 export default useGetAdminCompanies;

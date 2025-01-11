@@ -10,11 +10,12 @@ import { setSearchCompanyByText } from "../../Redux/companySlice.js";
 function Companies() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
-  useGetAdminCompanies();
 
   const { adminCompanies } = useSelector((state) => state.company);
   const [input, setInput] = useState("");
   console.log("Admin Companies UseState:", adminCompanies);
+
+  useGetAdminCompanies([]);
 
   // Use Effect to filter companies by text
   useEffect(() => {

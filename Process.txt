@@ -184,4 +184,5 @@ Commit 32 : Search Job Functionality
 Commit 33 : Delete Company From Dashboard
 1. On Companies Dashboard of admin, when user clicks delete icon, company gets deleted from DB
 
-
+Commit 34 : Delete Job When Company deleted
+1. When company is deleted from dashboard, it also deletes the job linked with this company

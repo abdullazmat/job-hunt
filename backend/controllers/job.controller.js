@@ -219,3 +219,64 @@ export const updateJob = async (req, res) => {
     });
   }
 };
+
+// Get Jobs by Company controller
+export const getJobsByCompany = async (req, res) => {
+  try {
+    const companyId = req.params.id;
+    console.log("Company ID", companyId);
+    const jobs = await Job.find({ company: companyId });
+    console.log("Jobs", jobs);
+    if (!jobs) {
+      return res.status(404).json({
+        message: "Jobs Not found",
+        success: false,
+      });
+    }
+    return res.status(200).json({
+      jobs,
+      success: true,
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: `Error: ${error.message}`,
+      success: false,
+    });
+  }
+};
+
+// Controller for deleting job by Admin
+export const deleteJob = async (req, res) => {
+  try {
+    // Find the job by ID
+    const job = await Job.findById(req.params.id);
+    console.log("Job", job);
+
+    if (!job) {
+      return res.status(404).json({
+        message: "Job not found",
+        success: false,
+      });
+    }
+
+    const { company } = job;
+
+    // Remove the job
+    await Job.deleteOne({ _id: req.params.id });
+
+    // Fetch updated list of companies for the user
+    const jobs = await Job.find({ company });
+
+    return res.status(200).json({
+      success: true,
+      message: "Job deleted successfully",
+      jobs,
+    });
+  } catch (error) {
+    console.error("Error occurred while deleting job:", error);
+    return res.status(500).json({
+      message: `Error: ${error.message}`,
+      success: false,
+    });
+  }
+};
