@@ -15,6 +15,7 @@ import CompanyDescription from "./Components/admin/CompanyDescription.js";
 import AdminJobs from "./Components/admin/AdminJobs.js";
 import JobUpdate from "./Components/admin/JobUpdate.js";
 import JobCreate from "./Components/admin/CreateJob.js";
+import JobApplicants from "./Components/admin/JobApplicants.js";
 
 function App() {
   return (
@@ -50,6 +51,10 @@ function App() {
             <Route
               path="/admin/jobs/update/:id"
               element={<JobUpdate />}
+            ></Route>
+            <Route
+              path="/admin/jobs/applicants/:id"
+              element={<JobApplicants />}
             ></Route>
             <Route path="/admin/jobs/create" element={<JobCreate />}></Route>
           </Routes>

@@ -1,16 +1,21 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-export const applicationsSlice = createSlice({
+export const applicationSlice = createSlice({
   name: "applications",
   initialState: {
     applicantStatus: null,
+    jobApplications: [],
   },
   reducers: {
     setApplicantStatus: (state, action) => {
       state.applicantStatus = action.payload;
     },
+    setJobApplications: (state, action) => {
+      state.jobApplications = action.payload;
+    },
   },
 });
 
-export const { setApplicantStatus } = applicationsSlice.actions;
-export default applicationsSlice.reducer;
+export const { setApplicantStatus, setJobApplications } =
+  applicationSlice.actions;
+export default applicationSlice.reducer;

@@ -189,3 +189,6 @@ Commit 34 : Delete Job When Company deleted
 
 Commit 35 : Delete Applications When Company/Job deleted
 1. When user clicks on delete company or job, it delete application of appicants in DB linked to it.
+
+Commit 36 : Update/Reject Application Status
+1. When user clicks on status button, it is updated accordingly in the User Jobs Status.

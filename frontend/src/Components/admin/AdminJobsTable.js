@@ -114,8 +114,7 @@ function AdminJobsTable({ jobs }) {
           <tr>
             <th scope="col">Company</th>
             <th scope="col">Applicants</th>
-            <th scope="col">Role</th>
-            <th scope="col">Date</th>
+            <th scope="col">Title</th>
             <th scope="col">Action</th>
           </tr>
         </thead>
@@ -125,8 +124,7 @@ function AdminJobsTable({ jobs }) {
               <tr key={index}>
                 <td className="text-center">{job?.company?.name}</td>
                 <td className="text-center">{job?.applications.length}</td>
-                <td className="text-center">{job?.jobType}</td>
-                <td className="text-center">{job?.createdAt.split("T")[0]}</td>
+                <td className="text-center">{job?.title}</td>
                 <td className=" mt-1  text-center">
                   <FontAwesomeIcon
                     icon={faPen}
