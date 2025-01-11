@@ -150,6 +150,7 @@ function CompaniesRegisteredTable({ companies }) {
                   <FontAwesomeIcon
                     icon={faPen}
                     className=" edit-company-icon"
+                    style={{ cursor: "pointer" }}
                     onClick={() => navigate(`/admin/companies/${company._id}`)}
                   />
                   <FontAwesomeIcon

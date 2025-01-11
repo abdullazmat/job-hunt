@@ -99,7 +99,8 @@ function AdminJobsTable({ jobs }) {
       });
 
       if (res?.data?.success) {
-        dispatch(setAdminJobs(res?.data?.jobs));
+        const updatedJobs = jobs.filter((job) => job._id !== id);
+        dispatch(setAdminJobs(updatedJobs));
       }
     } catch (error) {
       setError(error.message);

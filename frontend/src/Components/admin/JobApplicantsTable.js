@@ -145,7 +145,7 @@ function JobApplicantsTable({ jobApplications }) {
           ) : (
             <tr>
               <td colSpan="5" className="text-center  text-danger">
-                No Jobs Added
+                No Applicants
               </td>
             </tr>
           )}

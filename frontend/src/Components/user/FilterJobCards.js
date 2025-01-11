@@ -129,7 +129,12 @@ const FilterJobCards = ({ id, job }) => {
       </div>
       <div className="card-body">
         <h5 className="card-title text-start fw-bold">{job?.title}</h5>
-        <p className="card-text text-start">{job?.description}</p>
+        <p className="card-text text-start">
+          {job?.description?.split(" ").length >= 7
+            ? `${job.description.split(" ").slice(0, 7).join(" ")} ......`
+            : job?.description}
+        </p>
+
         <div className="d-flex flex-wrap gap-2 justify-content-center ">
           <p
             className=" fw-bold mb-2 px-2  px-xl-3"
