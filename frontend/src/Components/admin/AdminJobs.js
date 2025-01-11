@@ -29,7 +29,7 @@ function AdminJobs() {
           className="form-control w-50"
           type="search"
           style={{ color: "#6b7280" }}
-          placeholder="Filter Jobs"
+          placeholder="Filter Jobs by Company, Title"
           aria-label="Search"
           onChange={(e) => setInput(e.target.value)}
         />

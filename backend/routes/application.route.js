@@ -4,6 +4,7 @@ import {
   getApplications,
   getAppliedJobs,
   updateApplicationStatus,
+  deleteApplication,
 } from "../controllers/application.controller.js";
 import isAuthenticated from "../middlewares/isAuthenticated.js";
 
@@ -15,5 +16,6 @@ router.route("/applicants/:id").get(isAuthenticated, getApplications);
 router
   .route("/status/update/:id")
   .put(isAuthenticated, updateApplicationStatus);
+router.route("/delete/:id").delete(isAuthenticated, deleteApplication);
 
 export default router;

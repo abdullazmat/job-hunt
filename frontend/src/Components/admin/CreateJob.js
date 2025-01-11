@@ -83,7 +83,7 @@ function JobCreate() {
 
   return (
     <div className="container">
-      {adminCompanies.length === 0 && (
+      {adminCompanies?.length === 0 && (
         <div className="d-flex justify-content-center align-items-center mt-5">
           <h3 className="text-danger">
             You need to list a company to add a job
@@ -224,7 +224,7 @@ function JobCreate() {
                   : "Select Company"}
               </button>
               <ul className="dropdown-menu">
-                {adminCompanies.length > 0 ? (
+                {adminCompanies?.length > 0 ? (
                   adminCompanies?.map((company) => (
                     <li key={company._id}>
                       <button

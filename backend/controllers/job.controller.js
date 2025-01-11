@@ -224,9 +224,7 @@ export const updateJob = async (req, res) => {
 export const getJobsByCompany = async (req, res) => {
   try {
     const companyId = req.params.id;
-    console.log("Company ID", companyId);
     const jobs = await Job.find({ company: companyId });
-    console.log("Jobs", jobs);
     if (!jobs) {
       return res.status(404).json({
         message: "Jobs Not found",
@@ -250,7 +248,6 @@ export const deleteJob = async (req, res) => {
   try {
     // Find the job by ID
     const job = await Job.findById(req.params.id);
-    console.log("Job", job);
 
     if (!job) {
       return res.status(404).json({

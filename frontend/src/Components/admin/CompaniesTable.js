@@ -6,7 +6,11 @@ import { useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import axios from "axios";
-import { COMPANY_API_END_POINT, JOB_API_END_POINT } from "../../Utils/constant";
+import {
+  COMPANY_API_END_POINT,
+  JOB_API_END_POINT,
+  APPLICATION_API_END_POINT,
+} from "../../Utils/constant";
 import { useDispatch } from "react-redux";
 import { setAdminCompanies } from "../../Redux/companySlice";
 import { setAdminJobs } from "../../Redux/jobSlice";
@@ -19,7 +23,6 @@ function CompaniesRegisteredTable({ companies }) {
   const { searchCompanyText } = useSelector((state) => state.company);
   const [sucess, setSucess] = useState(false);
   const [error, setError] = useState(false);
-  const [jobsToBeDeleted, setJobsToBeDeleted] = useState(null);
 
   useEffect(() => {
     const filteredCompanies =
@@ -35,6 +38,24 @@ function CompaniesRegisteredTable({ companies }) {
         : [];
     setFilterCompanies(filteredCompanies);
   }, [companies, searchCompanyText]);
+
+  const deleteApplication = async (id) => {
+    try {
+      const res = await axios.delete(
+        `${APPLICATION_API_END_POINT}/delete/${id}`,
+        {
+          withCredentials: true,
+        }
+      );
+
+      if (res?.data?.success) {
+        setSucess(true);
+      }
+    } catch (error) {
+      setError(error.message);
+      console.log(error);
+    }
+  };
 
   const deleteJob = async (id) => {
     try {
@@ -79,7 +100,15 @@ function CompaniesRegisteredTable({ companies }) {
 
         if (jobsRes?.data?.success) {
           const jobs = jobsRes?.data?.jobs;
-          jobs.forEach((job) => deleteJob(job?._id));
+          const allApplications = [];
+
+          jobs.forEach((job) => {
+            deleteJob(job?._id); // Delete each job
+            allApplications.push(...job?.applications); // Collect applications
+          });
+
+          allApplications.forEach((app) => deleteApplication(app));
+          console.log("Applications to delete:", allApplications);
         }
       } else {
         console.error("Error while deleting company:", res?.data?.message);

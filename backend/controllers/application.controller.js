@@ -141,3 +141,28 @@ export const updateApplicationStatus = async (req, res) => {
     });
   }
 };
+
+// Delete Application By Job ID
+export const deleteApplication = async (req, res) => {
+  try {
+    const applicationId = req.params.id;
+    const application = await Application.findOneAndDelete({
+      _id: applicationId,
+    });
+    if (!application) {
+      return res.status(404).json({
+        message: "Application not found",
+        success: false,
+      });
+    }
+    return res.status(200).json({
+      success: true,
+      message: "Application deleted successfully",
+    });
+  } catch (error) {
+    return res.status(500).json({
+      message: `Error: ${error.message}`,
+      success: false,
+    });
+  }
+};

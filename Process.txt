@@ -186,3 +186,6 @@ Commit 33 : Delete Company From Dashboard
 
 Commit 34 : Delete Job When Company deleted
 1. When company is deleted from dashboard, it also deletes the job linked with this company
+
+Commit 35 : Delete Applications When Company/Job deleted
+1. When user clicks on delete company or job, it delete application of appicants in DB linked to it.
