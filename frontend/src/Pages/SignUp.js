@@ -5,6 +5,7 @@ import axios from "axios";
 import { USER_API_END_POINT } from "../Utils/constant";
 import { setLoading, setUser } from "../Redux/authSlice.js";
 import { useDispatch, useSelector } from "react-redux";
+import NotFound from "../Components/shared/notFound.js";
 
 function SignUp() {
   // Use States
@@ -18,6 +19,7 @@ function SignUp() {
   });
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
+  const { user } = useSelector((state) => state.auth);
 
   // Redux States
   const navigate = useNavigate();
@@ -90,6 +92,10 @@ function SignUp() {
       dispatch(setLoading(false));
     }
   };
+
+  if (user) {
+    return <NotFound message />;
+  }
 
   return (
     <div className="container p-5 mt-2 mt-md-0">

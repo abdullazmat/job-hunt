@@ -205,3 +205,5 @@ Commit 39 : Search Jobs on Filter Page
 Commit 40 : View Company Page UI
 1. Now admin can view info about the companies they listed and how many jobs are posted by it.
 
+Commit 41 : Responsiveness & Other Route Changes
+1. Adjusted table responsive and routes logic for admins and users

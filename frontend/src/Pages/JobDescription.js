@@ -10,27 +10,24 @@ import { useDispatch } from "react-redux";
 import { setJobDesc } from "../Redux/jobSlice";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
+import NotFound from "../Components/shared/notFound";
+import useGetCompanyData from "../Hooks/useGetCompanyData";
+import { Link } from "react-router-dom";
 
 function JobDescription() {
   const naivgate = useNavigate();
   const dispatch = useDispatch();
   const params = useParams();
   const jobId = params?.id;
-  console.log("Job ID:", jobId);
 
   const { user } = useSelector((state) => state.auth);
-  console.log("UserId:", user?._id);
   const { jobDesc } = useSelector((state) => state.job);
+  const { companyData } = useSelector((state) => state.company);
 
   const isApplied = jobDesc?.applications
     .map((app) => app?.applicant?._id)
     .includes(user?._id);
   console.log("Is Applied:", isApplied);
-
-  console.log(
-    "Applicant Id:",
-    jobDesc?.applications.map((app) => app.applicant._id)
-  );
 
   const applyJobHandler = async () => {
     try {
@@ -54,7 +51,6 @@ function JobDescription() {
         if (updatedJob.data.success) {
           dispatch(setJobDesc(updatedJob.data.job));
         }
-        console.log("Job Aplly Function:", response.data);
       }
     } catch (error) {
       console.log(error);
@@ -85,10 +81,16 @@ function JobDescription() {
     }
   }, [jobId, dispatch, user?._id]);
 
+  if (user?.role !== "student") {
+    return <NotFound />;
+  }
+
+  useGetCompanyData(jobDesc?.company, [jobDesc?.company]);
+
   return (
     <div className="container border p-3 p-md-5">
       <div className="d-flex justify-content-between">
-        <h4 className="fw-bold p-0 m-0">FrontEnd Developer</h4>
+        <h4 className="fw-bold p-0 m-0">Job Description</h4>
         <button
           disabled={isApplied}
           onClick={isApplied ? null : applyJobHandler}
@@ -134,8 +136,17 @@ function JobDescription() {
         </div>
       </div>
       <div>
-        <h5 className="mt-4">Job Description</h5>
         <div className="d-flex mt-4">
+          <p className="fw-bold">Company: </p>
+          <Link
+            className="ms-2"
+            style={{ textDecoration: "none" }}
+            to={`/company/description/${jobDesc?.company}`}
+          >
+            {companyData?.name}
+          </Link>
+        </div>
+        <div className="d-flex mt-2">
           <p className="fw-bold">Role: </p>
           <p className="ms-2">{jobDesc?.title}</p>
         </div>

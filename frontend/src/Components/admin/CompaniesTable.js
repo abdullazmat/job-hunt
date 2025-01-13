@@ -121,65 +121,75 @@ function CompaniesRegisteredTable({ companies }) {
   };
 
   return (
-    <div className="container ">
-      <table className="table mt-4">
-        <thead className="text-center">
-          <tr>
-            <th scope="col">Logo</th>
-            <th scope="col">Name</th>
-            <th scope="col">Date</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filterCompanies && filterCompanies.length > 0 ? (
-            filterCompanies?.map((company, index) => (
-              <tr key={index}>
-                <td className="text-center">
-                  <img
-                    src={
-                      company?.logo ? company?.logo : "/DefaultCompanyLogo.png"
-                    }
-                    width={50}
-                  ></img>
-                </td>
-                <td className="text-center">{company?.name}</td>
-                <td className="text-center">
-                  {company?.createdAt.split("T")[0]}
-                </td>
-                <td className=" mt-1  text-center">
-                  <FontAwesomeIcon
-                    icon={faPen}
-                    className=" edit-company-icon"
-                    style={{ cursor: "pointer" }}
-                    onClick={() =>
-                      navigate(`/admin/edit/company/${company._id}`)
-                    }
-                  />
-                  <FontAwesomeIcon
-                    icon={faTrashCan}
-                    className="  ms-3"
-                    style={{ color: "red", cursor: "pointer" }}
-                    onClick={() => deleteCompany(company._id)}
-                  />
-                  <FontAwesomeIcon
-                    icon={faEye}
-                    className="  ms-3"
-                    style={{ color: "green", cursor: "pointer" }}
-                    onClick={() => navigate(`/admin/company/${company._id}`)}
-                  />
+    <div className="container-fluid">
+      <div className="table-responsive">
+        <table className="table mt-4 table-bordered ">
+          <thead className="text-center">
+            <tr>
+              <th scope="col">Logo</th>
+              <th scope="col">Name</th>
+              <th scope="col">Date</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filterCompanies && filterCompanies.length > 0 ? (
+              filterCompanies?.map((company, index) => (
+                <tr key={index}>
+                  <td className="text-center">
+                    <img
+                      src={
+                        company?.logo
+                          ? company?.logo
+                          : "/DefaultCompanyLogo.png"
+                      }
+                      width={50}
+                    ></img>
+                  </td>
+                  <td className="text-center">{company?.name}</td>
+                  <td className="text-center" style={{ whiteSpace: "nowrap" }}>
+                    <p>{company?.createdAt.split("T")[0]}</p>
+                  </td>
+
+                  <td
+                    className=" mt-1 text-center"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    <FontAwesomeIcon
+                      icon={faPen}
+                      className=" edit-company-icon"
+                      style={{ cursor: "pointer" }}
+                      onClick={() =>
+                        navigate(`/admin/edit/company/${company._id}`)
+                      }
+                    />
+                    <FontAwesomeIcon
+                      icon={faTrashCan}
+                      className="ms-3  "
+                      style={{ color: "red", cursor: "pointer" }}
+                      onClick={() => deleteCompany(company._id)}
+                    />
+                    <FontAwesomeIcon
+                      icon={faEye}
+                      className=" ms-3 "
+                      style={{ color: "green", cursor: "pointer" }}
+                      onClick={() =>
+                        navigate(`/company/description/${company._id}`)
+                      }
+                    />
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="4" className="text-center text-danger">
+                  No Companies Listed
                 </td>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="4" className="text-center text-danger">
-                No Companies Listed
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

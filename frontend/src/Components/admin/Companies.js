@@ -6,12 +6,14 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setSearchCompanyByText } from "../../Redux/companySlice.js";
+import NotFound from "../shared/notFound";
 
 function Companies() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const { adminCompanies } = useSelector((state) => state.company);
+  const { user } = useSelector((state) => state.auth);
   const [input, setInput] = useState("");
   console.log("Admin Companies UseState:", adminCompanies);
 
@@ -22,9 +24,13 @@ function Companies() {
     dispatch(setSearchCompanyByText(input));
   }, [input]);
 
+  if (user?.role !== "recruiter") {
+    return <NotFound />;
+  }
+
   return (
-    <div className="container">
-      <div className="p-sm-2 p-md-5 d-flex align-items-center justify-content-between">
+    <div className="container-fluid container-md container-lg container-xl">
+      <div className="p-sm-0 p-md-5 d-flex align-items-center justify-content-between">
         <input
           className="form-control w-50"
           type="search"

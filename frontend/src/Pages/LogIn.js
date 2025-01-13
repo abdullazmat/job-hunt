@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { setUser } from "../Redux/authSlice.js";
+import NotFound from "../Components/shared/notFound.js";
 
 function LogIn() {
   // Use States
@@ -19,10 +20,9 @@ function LogIn() {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(false);
   const [loading, setLoading] = useState(false);
-  const { user } = useSelector((state) => state.auth);
+  const { user, loading: userLoading } = useSelector((state) => state.auth);
 
   // Functions
-
   const handleChange = (e) => {
     setFormData({
       ...formData,
@@ -53,7 +53,6 @@ function LogIn() {
       } else {
         setLoading(false);
         dispatch(setUser(data.user));
-        console.log("User Login Dispatch:", data);
         setSuccess(true);
         setTimeout(() => {
           setSuccess(false);
@@ -69,6 +68,22 @@ function LogIn() {
     }
   };
 
+  useEffect(() => {
+    // Redirect logged-in users away from the login page
+    if (user && !userLoading) {
+      navigate("/");
+    }
+  }, [user, userLoading, navigate]);
+
+  // Wait for the user state to initialize before showing the form or error
+  if (userLoading) {
+    return <div>Loading...</div>;
+  }
+
+  if (user) {
+    return null; // Avoid rendering if user is already logged in
+  }
+
   // UI
   return (
     <div className="container p-5 mt-4 mt-md-0">
@@ -76,6 +91,7 @@ function LogIn() {
         className="container p-3 d-flex flex-column justify-content-center border col-12 col-sm-9 col-md-6"
         onSubmit={handleSubmit}
       >
+        {/* Form Fields */}
         <div className="mb-3">
           <h4 className="mb-4 fw-bold">Log In</h4>
           <label htmlFor="email" className="form-label fw-medium">
@@ -107,6 +123,7 @@ function LogIn() {
           />
         </div>
 
+        {/* Role Selection */}
         <div className="d-flex ">
           <div className="form-check mb-4 mt-2">
             <input
@@ -147,10 +164,11 @@ function LogIn() {
             SignUp
           </Link>
         </div>
+        {/* Error and Success Messages */}
         {error && (
           <div
             className="toast-container position-fixed"
-            style={{ bottom: "50px", right: "10px" }} // Adjust these values
+            style={{ bottom: "50px", right: "10px" }}
           >
             <div
               id="liveToast"
@@ -166,7 +184,7 @@ function LogIn() {
         {success && user && (
           <div
             className="toast-container position-fixed bottom-0 end-0 p-3"
-            style={{ bottom: "50px", right: "10px" }} // Adjust these values
+            style={{ bottom: "50px", right: "10px" }}
           >
             <div
               id="liveToast"

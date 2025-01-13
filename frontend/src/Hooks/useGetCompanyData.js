@@ -4,7 +4,7 @@ import { COMPANY_API_END_POINT } from "../Utils/constant";
 import { useDispatch } from "react-redux";
 import { setCompanyData } from "../Redux/companySlice";
 
-const useGetCompanyData = (CompanyId) => {
+const useGetCompanyData = (CompanyId, dependencies = []) => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -26,7 +26,7 @@ const useGetCompanyData = (CompanyId) => {
       }
     };
     getCompanyData();
-  }, []);
+  }, dependencies);
 };
 
 export default useGetCompanyData;

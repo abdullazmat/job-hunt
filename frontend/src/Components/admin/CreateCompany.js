@@ -4,6 +4,8 @@ import { useDispatch } from "react-redux";
 import { COMPANY_API_END_POINT } from "../../Utils/constant";
 import { useNavigate } from "react-router-dom";
 import { setCompanyData } from "../../Redux/companySlice.js";
+import NotFound from "../shared/notFound";
+import { useSelector } from "react-redux";
 
 const CreateCompany = () => {
   const dispatch = useDispatch();
@@ -12,6 +14,7 @@ const CreateCompany = () => {
   const [error, setError] = useState(null);
   const [success, setSuccess] = useState(null);
   const [loading, setLoading] = useState(false);
+  const { user } = useSelector((state) => state.auth);
 
   const registerCompany = async () => {
     setLoading(true);
@@ -34,7 +37,7 @@ const CreateCompany = () => {
         setSuccess("Company created successfully");
         setTimeout(() => {
           setSuccess(null);
-          navigate(`/admin/companies/${companyId}`);
+          navigate(`/admin/edit/company/${companyId}`);
         }, 1000);
       }
     } catch (error) {
@@ -45,6 +48,10 @@ const CreateCompany = () => {
       setLoading(false);
     }
   };
+
+  if (user?.role !== "recruiter") {
+    return <NotFound />;
+  }
 
   return (
     <div className="container mt-5">

@@ -11,6 +11,7 @@ import { setJobApplications } from "../../Redux/applicationsSlice";
 import { useSelector } from "react-redux";
 import JobApplicantsTable from "./JobApplicantsTable";
 import { useState } from "react";
+import NotFound from "../shared/notFound";
 
 function JobApplicants() {
   const params = useParams();
@@ -18,6 +19,7 @@ function JobApplicants() {
   const [loading, setLoading] = useState(true);
 
   const { jobApplications } = useSelector((state) => state.applications);
+  const { user } = useSelector((state) => state.auth);
 
   useEffect(() => {
     const getJobApplications = async (id) => {
@@ -38,6 +40,10 @@ function JobApplicants() {
     };
     getJobApplications(params.id);
   }, []);
+
+  if (user?.role !== "recruiter") {
+    return <NotFound />;
+  }
 
   return (
     <div className="container">

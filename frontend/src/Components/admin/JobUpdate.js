@@ -10,6 +10,7 @@ import { setJobDesc } from "../../Redux/jobSlice.js";
 import { useEffect } from "react";
 import useGetJobData from "../../Hooks/useGetJobData.js";
 import useGetCompanyData from "../../Hooks/useGetCompanyData.js";
+import NotFound from "../shared/notFound";
 
 function JobUpdate() {
   const { jobDesc } = useSelector((state) => state.job);
@@ -18,6 +19,8 @@ function JobUpdate() {
   const [success, setSuccess] = useState(null);
   const [loading, setLoading] = useState(false);
   const { adminCompanies } = useSelector((state) => state.company);
+
+  const { user } = useSelector((state) => state.auth);
 
   useGetCompanyData(jobDesc?.company);
   console.log("Job Company Data:", companyData);
@@ -105,6 +108,10 @@ function JobUpdate() {
       setLoading(false);
     }
   };
+
+  if (user?.role !== "recruiter") {
+    return <NotFound />;
+  }
 
   return (
     <div className="container">

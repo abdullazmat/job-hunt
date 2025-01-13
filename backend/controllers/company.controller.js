@@ -33,6 +33,13 @@ export const registerComapny = async (req, res) => {
       success: true,
     });
   } catch (error) {
+    if (error.code === 11000) {
+      return res.status(400).json({
+        message: "Company name already registered.",
+        success: false,
+      });
+    }
+
     return res.status(500).json({
       message: `Error: ${error.message}`,
       success: false,

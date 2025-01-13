@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faBookmark } from "@fortawesome/free-regular-svg-icons";
+import { faBars } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useSelector } from "react-redux";
 import axios from "axios";
@@ -17,17 +17,9 @@ const FilterJobCards = ({ id, job }) => {
 
   const { user } = useSelector((state) => state.auth);
 
-  console.log(job);
-
   const isApplied = job?.applications
     .map((app) => app.applicant)
     .includes(user?._id);
-  console.log("Is Applied:", isApplied);
-
-  console.log(
-    "Applicant Id:",
-    job?.applications.map((app) => app)
-  );
 
   useEffect(() => {
     if (!user) {
@@ -97,12 +89,14 @@ const FilterJobCards = ({ id, job }) => {
           <i className="fw-semibold">
             {daysAgoFunction(job.createdAt) === 0
               ? "Today"
+              : daysAgoFunction(job.createdAt) === 1
+              ? "1 day ago"
               : `${daysAgoFunction(job.createdAt)} days ago`}
           </i>
         </p>
         <FontAwesomeIcon
-          icon={faBookmark}
-          className="mb-0 ms-4 bookmark-icon"
+          icon={faBars}
+          className="mb-0 ms-4 "
           style={{ color: "black" }}
         />
       </div>

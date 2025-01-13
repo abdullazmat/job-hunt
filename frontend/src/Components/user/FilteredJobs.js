@@ -3,6 +3,8 @@ import { useSelector } from "react-redux";
 import useGetAllJobs from "../../Hooks/useGetAllJobs";
 import useGetAppliedJobs from "../../Hooks/useGetAppliedJobs";
 import { useState, useEffect } from "react";
+import NotFound from "../shared/notFound";
+import { Navigate } from "react-router-dom";
 
 function FilteredJobs() {
   const { allJobs, jobDesc } = useSelector((state) => state.job);
@@ -82,7 +84,10 @@ function FilteredJobs() {
                 if (salaryRange === "40k") return job.salary <= 40000;
                 if (salaryRange === "1lakh")
                   return job.salary > 40000 && job.salary <= 100000;
-                if (salaryRange === "5lakh") return job.salary > 100000;
+                if (salaryRange === "5lakh")
+                  return job.salary >= 100000 && job.salary <= 100000;
+                if (salaryRange === "1Million")
+                  return job.salary > 500000 && job.salary <= 1000000;
                 return false;
               })
             : true;
@@ -95,6 +100,14 @@ function FilteredJobs() {
 
     filterJobs();
   }, [allJobs, selectedLocations, selectedIndustries, selectedSalaries]);
+
+  if (!user) {
+    return <Navigate to="/login" replace />;
+  }
+
+  if (user.role !== "student") {
+    return <NotFound />;
+  }
 
   return (
     <div className="container-fluid p-0">
@@ -175,7 +188,7 @@ function FilteredJobs() {
             <div className="mb-4">
               <h5 className="m-0 mb-2">Salary</h5>
               <div className="d-flex flex-wrap">
-                {["40k", "1lakh", "5lakh"].map((salary) => (
+                {["40k", "1lakh", "5lakh", "1Million"].map((salary) => (
                   <div
                     key={salary}
                     className="form-check d-flex align-items-center me-4 mb-2"
@@ -196,7 +209,9 @@ function FilteredJobs() {
                         ? "0 - 40K"
                         : salary === "1lakh"
                         ? "40K - 1Lakh"
-                        : "1 - 5Lakh"}
+                        : salary === "5lakh"
+                        ? "1 - 5Lakh"
+                        : "5Lakh - 1Million"}
                     </label>
                   </div>
                 ))}

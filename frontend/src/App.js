@@ -12,11 +12,12 @@ import PrivateRoute from "./Components/user/PrivateRoute.js";
 import Companies from "./Components/admin/Companies.js";
 import CreateCompany from "./Components/admin/CreateCompany.js";
 import CompanyDescription from "./Components/admin/CompanyDescription.js";
-import ViewCompany from "./Components/admin/ViewCompany.js";
+import ViewCompany from "./Components/shared/ViewCompany.js";
 import AdminJobs from "./Components/admin/AdminJobs.js";
 import JobUpdate from "./Components/admin/JobUpdate.js";
 import JobCreate from "./Components/admin/CreateJob.js";
 import JobApplicants from "./Components/admin/JobApplicants.js";
+import NotFound from "./Components/shared/notFound.js";
 
 function App() {
   return (
@@ -48,20 +49,21 @@ function App() {
                 element={<CompanyDescription />}
               ></Route>
               <Route
-                path="/admin/company/:id"
+                path="/company/description/:id"
                 element={<ViewCompany />}
               ></Route>
               <Route path="/admin/jobs" element={<AdminJobs />}></Route>
+              <Route
+                path="/admin/jobs/update/:id"
+                element={<JobUpdate />}
+              ></Route>
+              <Route
+                path="/admin/jobs/applicants/:id"
+                element={<JobApplicants />}
+              ></Route>
+              <Route path="/admin/jobs/create" element={<JobCreate />}></Route>
             </Route>
-            <Route
-              path="/admin/jobs/update/:id"
-              element={<JobUpdate />}
-            ></Route>
-            <Route
-              path="/admin/jobs/applicants/:id"
-              element={<JobApplicants />}
-            ></Route>
-            <Route path="/admin/jobs/create" element={<JobCreate />}></Route>
+            <Route path="*" element={<NotFound />} />
           </Routes>
         </div>
         <Footer />

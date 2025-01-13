@@ -153,8 +153,8 @@ function Header() {
                   <div className="d-flex ">
                     <img
                       src={
-                        user?.user?.profile?.profilePhoto
-                          ? user.user.profile.profilePhoto
+                        user?.profile?.profilePhoto
+                          ? user?.profile.profilePhoto
                           : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
                       }
                       alt="mdo"

@@ -6,6 +6,7 @@ import { useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { setJobByText } from "../../Redux/jobSlice";
 import useGetAdminJobs from "../../Hooks/useGetAdminJobs";
+import NotFound from "../shared/notFound";
 
 function AdminJobs() {
   useGetAdminJobs();
@@ -13,6 +14,7 @@ function AdminJobs() {
   const dispatch = useDispatch();
 
   const { adminJobs } = useSelector((state) => state.job);
+  const { user } = useSelector((state) => state.auth);
 
   const [input, setInput] = useState("");
   console.log("Jobs Listed UseState:", adminJobs);
@@ -22,6 +24,10 @@ function AdminJobs() {
     dispatch(setJobByText(input));
   }, [input]);
 
+  if (user?.role !== "recruiter") {
+    return <NotFound />;
+  }
+
   return (
     <div className="container">
       <div className="p-sm-2 p-md-5 d-flex align-items-center justify-content-between">
@@ -29,7 +35,7 @@ function AdminJobs() {
           className="form-control w-50"
           type="search"
           style={{ color: "#6b7280" }}
-          placeholder="Filter Jobs by Company, Title"
+          placeholder="Filter Jobs"
           aria-label="Search"
           onChange={(e) => setInput(e.target.value)}
         />

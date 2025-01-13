@@ -109,55 +109,60 @@ function AdminJobsTable({ jobs }) {
   };
 
   return (
-    <div className="container ">
-      <table className="table mt-4">
-        <thead className="text-center">
-          <tr>
-            <th scope="col">Company</th>
-            <th scope="col">Applicants</th>
-            <th scope="col">Title</th>
-            <th scope="col">Action</th>
-          </tr>
-        </thead>
-        <tbody>
-          {filterJobs && filterJobs.length > 0 ? (
-            filterJobs.map((job, index) => (
-              <tr key={index}>
-                <td className="text-center">{job?.company?.name}</td>
-                <td className="text-center">{job?.applications.length}</td>
-                <td className="text-center">{job?.title}</td>
-                <td className=" mt-1  text-center">
-                  <FontAwesomeIcon
-                    icon={faPen}
-                    style={{ cursor: "pointer" }}
-                    onClick={() => navigate(`/admin/jobs/update/${job?._id}`)}
-                  />
-                  <FontAwesomeIcon
-                    icon={faTrashCan}
-                    className="  ms-3"
-                    style={{ color: "red", cursor: "pointer" }}
-                    onClick={() => deleteJob(job?._id)}
-                  />
-                  <FontAwesomeIcon
-                    icon={faEye}
-                    className="  ms-3"
-                    style={{ color: "green", cursor: "pointer" }}
-                    onClick={() =>
-                      navigate(`/admin/jobs/applicants/${job?._id}`)
-                    }
-                  />
+    <div className="container-fluid ">
+      <div className="table-responsive">
+        <table className="table  table-bordered mt-4">
+          <thead className="text-center">
+            <tr>
+              <th scope="col">Company</th>
+              <th scope="col">Applicants</th>
+              <th scope="col">Title</th>
+              <th scope="col">Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            {filterJobs && filterJobs.length > 0 ? (
+              filterJobs.map((job, index) => (
+                <tr key={index}>
+                  <td className="text-center">{job?.company?.name}</td>
+                  <td className="text-center">{job?.applications.length}</td>
+                  <td className="text-center">{job?.title}</td>
+                  <td
+                    className=" mt-1  text-center"
+                    style={{ whiteSpace: "nowrap" }}
+                  >
+                    <FontAwesomeIcon
+                      icon={faPen}
+                      style={{ cursor: "pointer" }}
+                      onClick={() => navigate(`/admin/jobs/update/${job?._id}`)}
+                    />
+                    <FontAwesomeIcon
+                      icon={faTrashCan}
+                      className="  ms-3"
+                      style={{ color: "red", cursor: "pointer" }}
+                      onClick={() => deleteJob(job?._id)}
+                    />
+                    <FontAwesomeIcon
+                      icon={faEye}
+                      className="  ms-3"
+                      style={{ color: "green", cursor: "pointer" }}
+                      onClick={() =>
+                        navigate(`/admin/jobs/applicants/${job?._id}`)
+                      }
+                    />
+                  </td>
+                </tr>
+              ))
+            ) : (
+              <tr>
+                <td colSpan="5" className="text-center  text-danger">
+                  No Jobs Added
                 </td>
               </tr>
-            ))
-          ) : (
-            <tr>
-              <td colSpan="5" className="text-center  text-danger">
-                No Jobs Added
-              </td>
-            </tr>
-          )}
-        </tbody>
-      </table>
+            )}
+          </tbody>
+        </table>
+      </div>
     </div>
   );
 }

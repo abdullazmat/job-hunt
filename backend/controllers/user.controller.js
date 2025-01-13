@@ -10,15 +10,21 @@ dotenv.config();
 export const register = async (req, res) => {
   try {
     const { fullName, email, phoneNumber, password, role } = req.body; // Check if all fields are provided
+    console.log("Request Body", req.body);
     if (!fullName || !email || !password || !role || !phoneNumber) {
       return res
         .status(400)
         .json({ message: "All fields are required", success: false });
     }
 
-    const file = req.file;
-    const fileUri = getDataUri(file);
-    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+    let profilePhotoUrl = null; // Initialize as null
+
+    if (req.file) {
+      const file = req.file;
+      const fileUri = getDataUri(file);
+      const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+      profilePhotoUrl = cloudResponse.secure_url;
+    }
 
     const user = await User.findOne({ email }); // Check if email is unique
     if (user) {
@@ -36,7 +42,7 @@ export const register = async (req, res) => {
       phoneNumber,
       role,
       profile: {
-        profilePhoto: cloudResponse.secure_url,
+        profilePhoto: profilePhotoUrl,
       },
     });
 
@@ -205,6 +211,74 @@ export const updateProfile = async (req, res) => {
       user: responseUser,
       success: true,
     });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: `Error: ${error.message}`, success: false });
+  }
+};
+
+// Update User Profile Photo controller
+export const updatePfp = async (req, res) => {
+  try {
+    // Check if user is authenticated and retrieve user from DB
+    const userId = req.id; // Middleware Authenticated user id
+    let user = await User.findById(userId);
+    console.log("USER API Before", user);
+    if (!user) {
+      return res
+        .status(400)
+        .json({ message: "User not found", success: false });
+    }
+
+    // File upload handling
+    const file = req.file;
+    const fileUri = getDataUri(file);
+    const cloudResponse = await cloudinary.uploader.upload(fileUri.content);
+
+    // Update profile photo in user profile
+    user.profile.profilePhoto = cloudResponse.secure_url;
+
+    // Save updated user to database
+    await user.save();
+
+    console.log("USER API After", user);
+
+    // Create a clean response object
+    const responseUser = {
+      _id: user._id,
+      fullName: user.fullName,
+      email: user.email,
+      role: user.role,
+      phoneNumber: user.phoneNumber,
+      profile: user.profile,
+    };
+
+    console.log("Updated User Data ", responseUser);
+
+    return res.status(200).json({
+      message: "Profile photo updated successfully",
+      user: responseUser,
+      success: true,
+    });
+  } catch (error) {
+    return res
+      .status(500)
+      .json({ message: `Error: ${error.message}`, success: false });
+  }
+};
+
+// Get User by ID controller
+export const getUserById = async (req, res) => {
+  try {
+    const userId = req.params.id;
+    const user = await User.findById(userId).select("-password");
+    if (!user) {
+      return res
+        .status(404)
+        .json({ message: "User not found", success: false });
+    }
+    return res.status(200).json({ user, success: true });
   } catch (error) {
     return res
       .status(500)

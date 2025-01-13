@@ -5,12 +5,75 @@ import { faEnvelope } from "@fortawesome/free-regular-svg-icons";
 import { useSelector } from "react-redux";
 import AppliedJobsTable from "./AppliedJobsTable";
 import UpdateProfileDialog from "./UpdateProfileDialog";
+import { useRef } from "react";
+import axios from "axios";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setUser } from "../../Redux/authSlice";
+import { USER_API_END_POINT } from "../../Utils/constant";
+import NotFound from "../shared/notFound";
 
 const Profile = () => {
+  const dispatch = useDispatch();
+
   const [edit, setEdit] = useState(false);
   const { user } = useSelector((state) => state.auth);
   const { appliedJobs } = useSelector((state) => state.auth);
+  const [file, setFile] = useState(null);
+  const [imageLoading, setImageLoading] = useState(false);
+
   console.log("Profile", user);
+
+  useEffect(() => {
+    const getUser = async () => {
+      try {
+        const res = await axios.get(`${USER_API_END_POINT}/user/${user?._id}`, {
+          withCredentials: true,
+        });
+        if (res?.data?.success) {
+          dispatch(setUser(res?.data?.user));
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getUser();
+  }, []);
+
+  const fileRef = useRef(null);
+
+  useEffect(() => {
+    if (file) {
+      handleFileUpload(file);
+    }
+  }, [file]);
+
+  const handleFileUpload = async (file) => {
+    const formData = new FormData();
+    formData.append("file", file);
+    try {
+      setImageLoading(true);
+      const res = await axios.put(
+        `${USER_API_END_POINT}/pfp/update`,
+        formData,
+        {
+          withCredentials: true,
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+      dispatch(setUser(res?.data?.user));
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setImageLoading(false);
+    }
+  };
+
+  if (user?.role !== "student") {
+    return <NotFound />;
+  }
 
   return (
     <div className="container">
@@ -18,16 +81,53 @@ const Profile = () => {
         <div className="d-flex justify-content-between ms-2">
           <div className="d-flex align-items-center">
             <div>
-              <img
-                src={
-                  user?.profile?.profilePhoto
-                    ? user?.profile?.profilePhoto
-                    : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
-                }
-                alt={user?.fullName}
-                className="img-fluid rounded-circle"
-                style={{ width: "100px", height: "100px" }}
+              <input
+                onChange={(e) => setFile(e.target.files[0])}
+                type="file"
+                ref={fileRef}
+                hidden
+                accept="image/*"
               />
+              <div
+                className="position-relative"
+                style={{
+                  width: "100px",
+                  height: "100px",
+                }}
+              >
+                {imageLoading ? (
+                  <div
+                    className="spinner-grow "
+                    role="status"
+                    style={{
+                      width: "100px",
+                      height: "100px",
+                      display: "flex",
+                      alignItems: "center",
+                      justifyContent: "center",
+                    }}
+                  >
+                    <span className="visually-hidden">Loading...</span>
+                  </div>
+                ) : (
+                  <img
+                    src={
+                      user?.profile?.profilePhoto
+                        ? user?.profile?.profilePhoto
+                        : "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png"
+                    }
+                    alt={user?.fullName}
+                    className="img-fluid rounded-circle"
+                    style={{
+                      width: "100px",
+                      height: "100px",
+                      objectFit: "cover",
+                      cursor: "pointer",
+                    }}
+                    onClick={() => fileRef.current.click()}
+                  />
+                )}
+              </div>
             </div>
             <div>
               <h4 className="ms-3 p-0 m-0 fw-bold">
