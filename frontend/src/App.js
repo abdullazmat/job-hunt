@@ -18,6 +18,8 @@ import JobUpdate from "./Components/admin/JobUpdate.js";
 import JobCreate from "./Components/admin/CreateJob.js";
 import JobApplicants from "./Components/admin/JobApplicants.js";
 import NotFound from "./Components/shared/notFound.js";
+import ForgetPassword from "./Components/shared/ForgetPassword.js";
+import UpdatePassword from "./Components/shared/UpdatePassword.js";
 
 function App() {
   return (
@@ -33,6 +35,12 @@ function App() {
             <Route path="/login" element={<LogIn />}></Route>
             <Route path="/jobs" element={<Jobs />}></Route>
             <Route path="/browse" element={<Browse />}></Route>
+            <Route path="/forget-password" element={<ForgetPassword />}></Route>
+            <Route
+              path="/reset-password/:token"
+              element={<UpdatePassword />}
+            ></Route>
+
             <Route element={<PrivateRoute />}>
               <Route
                 path="/job/description/:id"

@@ -164,6 +164,12 @@ function LogIn() {
             SignUp
           </Link>
         </div>
+        <div className="mt-2 d-flex">
+          <p className="text-danger">Forgot Password?</p>
+          <Link to="/forget-password" className="ms-2">
+            Click here
+          </Link>
+        </div>
         {/* Error and Success Messages */}
         {error && (
           <div

@@ -6,6 +6,8 @@ import {
   logout,
   updatePfp,
   getUserById,
+  forgetPassword,
+  resetPassword,
 } from "../controllers/user.controller.js";
 import isAuthenticated from "../middlewares/isAuthenticated.js";
 import { singleUpload } from "../middlewares/multer.js";
@@ -20,5 +22,7 @@ router
   .put(isAuthenticated, singleUpload, updateProfile);
 router.route("/pfp/update").put(isAuthenticated, singleUpload, updatePfp);
 router.route("/user/:id").get(isAuthenticated, getUserById);
+router.route("/forget-password").post(forgetPassword);
+router.route("/reset-password/:token").put(resetPassword);
 
 export default router;
