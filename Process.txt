@@ -211,3 +211,7 @@ Commit 41 : Responsiveness & Other Route Changes
 Commit 42 : Reset Password
 1. Reset Password using nodemail functioanlity
 
+Commit 43 : Render Deployment
+1. Deployment steps for index.js and package.json file 
+
+

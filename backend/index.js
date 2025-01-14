@@ -8,6 +8,7 @@ import userRoutes from "./routes/user.route.js";
 import companyRoutes from "./routes/company.route.js";
 import jobRoutes from "./routes/job.route.js";
 import applicationRoutes from "./routes/application.route.js";
+import path from "path";
 
 const app = express();
 
@@ -22,17 +23,28 @@ app.get("/home", (req, res) => {
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
-const corsOptions = {
-  origin: "http://localhost:3001",
-  credentials: true,
-};
-app.use(cors(corsOptions));
+
+// Enable CORS for all routes
+app.use(
+  cors({
+    origin: "http://localhost:3001",
+    credentials: true,
+    methods: ["GET", "POST", "PUT", "DELETE"],
+  })
+);
 
 // API Routes
 app.use("/api/v1/user", userRoutes);
 app.use("/api/v1/company", companyRoutes);
 app.use("/api/v1/job", jobRoutes);
 app.use("/api/v1/application", applicationRoutes);
+
+// Serve static assets if in production
+const __dirname = path.resolve();
+app.use(express.static(path.join(__dirname, "/frontend/build")));
+app.get("*", (req, res) => {
+  res.sendFile(path.join(__dirname, "frontend", "build", "index.html"));
+});
 
 const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
