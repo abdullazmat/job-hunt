@@ -4,4 +4,5 @@
 node_modules
 /frontend/.env
 /frontend/node_modules
+.env
 
