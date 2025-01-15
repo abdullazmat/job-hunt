@@ -14,7 +14,6 @@ const useGetAdminJobs = () => {
           withCredentials: true,
         });
         if (res.data.success) {
-          console.log("Admin jOBS API Response:", res.data.companies);
           dispatch(setAdminJobs(res.data.jobs));
         }
       } catch (err) {

@@ -46,7 +46,6 @@ function UpdateProfileDialog({ edit, setEdit }) {
     if (formData.file) {
       formDataObject.append("file", formData.file);
     }
-    console.log("formDataObject updated", formDataObject);
     try {
       setLoading(true);
       const res = await axios.put(
@@ -60,7 +59,6 @@ function UpdateProfileDialog({ edit, setEdit }) {
 
       if (res.data.success) {
         dispatch(setUser(res.data.user));
-        console.log("User Update Dispatch:", res.data.user);
         setSuccess(true);
         setTimeout(() => {
           setSuccess(false);
@@ -75,7 +73,6 @@ function UpdateProfileDialog({ edit, setEdit }) {
     } finally {
       setLoading(false);
     }
-    console.log("formData", formData);
   };
 
   return (

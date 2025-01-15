@@ -14,7 +14,6 @@ const useGetAppliedJobs = (dependencies = []) => {
           withCredentials: true,
         });
         if (res.data.success) {
-          console.log("User Applied jOBS API Response:", res.data.applications);
           dispatch(setAppliedJobs(res.data.applications));
         }
       } catch (err) {

@@ -17,7 +17,6 @@ const useGetJobData = (JobId) => {
 
         if (response.data.success) {
           dispatch(setJobDesc(response?.data?.job));
-          console.log("Job Data UseEffect:", response?.data?.job);
         }
       };
       getjob();

@@ -17,7 +17,6 @@ const useGetCompanyData = (CompanyId, dependencies = []) => {
           }
         );
         if (res.data.success) {
-          console.log("Company API Response:", res.data.company);
           dispatch(setCompanyData(res.data.company));
           return res.data.company;
         }

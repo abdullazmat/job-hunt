@@ -11,7 +11,6 @@ import { useState } from "react";
 
 function Header() {
   const { user } = useSelector((state) => state.auth);
-  console.log("Header", user);
   const [success, setSuccess] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();

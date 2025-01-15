@@ -29,7 +29,6 @@ function Browse() {
           }
         );
         if (res.data.success) {
-          console.log("API Response:", res.data.jobs);
           dispatch(setAllJobs(res.data.jobs));
         }
       } catch (err) {

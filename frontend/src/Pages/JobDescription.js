@@ -27,7 +27,6 @@ function JobDescription() {
   const isApplied = jobDesc?.applications
     .map((app) => app?.applicant?._id)
     .includes(user?._id);
-  console.log("Is Applied:", isApplied);
 
   const applyJobHandler = async () => {
     try {

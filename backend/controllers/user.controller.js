@@ -285,7 +285,6 @@ export const getUserById = async (req, res) => {
 export const forgetPassword = async (req, res) => {
   try {
     const { email } = req.body;
-    console.log(req.body);
     if (!email) {
       return res.status(400).json({
         message: "Email is required",
@@ -369,7 +368,6 @@ export const forgetPassword = async (req, res) => {
 // Reset Password controller
 export const resetPassword = async (req, res) => {
   try {
-    console.log(req.body);
     const { password } = req.body;
     if (!password) {
       return res.status(400).json({
@@ -379,7 +377,6 @@ export const resetPassword = async (req, res) => {
     }
 
     const token = req.params.token;
-    console.log(token);
 
     if (!token) {
       return res.status(400).json({

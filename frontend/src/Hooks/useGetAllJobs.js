@@ -12,7 +12,6 @@ const useGetAllJobs = (dependencies = []) => {
       try {
         const res = await axios.get(`${JOB_API_END_POINT}/get`);
         if (res.data.success) {
-          console.log("API Response:", res.data.jobs);
           dispatch(setAllJobs(res.data.jobs));
         }
       } catch (err) {

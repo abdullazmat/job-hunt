@@ -22,8 +22,6 @@ const Profile = () => {
   const [file, setFile] = useState(null);
   const [imageLoading, setImageLoading] = useState(false);
 
-  console.log("Profile", user);
-
   useEffect(() => {
     const getUser = async () => {
       try {

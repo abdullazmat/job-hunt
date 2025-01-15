@@ -14,7 +14,6 @@ const useGetAdminCompanies = (dependencies = []) => {
           withCredentials: true,
         });
         if (res.data.success) {
-          console.log("Admin Company API Response:", res.data.companies);
           dispatch(setAdminCompanies(res.data.companies));
         }
       } catch (err) {

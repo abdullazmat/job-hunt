@@ -53,7 +53,6 @@ function SignUp() {
     //   formDataObject.append("file", formData.file);
     // }
     // console.log(formDataObject);
-    console.log(formData);
 
     try {
       dispatch(setLoading(true));
