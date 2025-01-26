@@ -15,7 +15,7 @@ function Footer() {
           <div className="col-md-4 d-flex align-items- flex-column">
             <h4 className="fw-bold">Job Hunt</h4>
             <p className="mb-3 mb-md-0 text-body-secondary">
-              © 2024 Company, Inc
+              © 2024 Developed by Abdullah
             </p>
           </div>
 
