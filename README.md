@@ -2,7 +2,7 @@
 
 A job listing platform built with the MERN stack, featuring user authentication, job post creation with image uploads, and secure backend integration.
 
-![Job Hunt HomePage](./frontend/public/Job*20Hunt.png)
+![Job Hunt HomePage](./frontend/public/Job%20Hunt.png)
 
 ## Features
 
